@@ -11,9 +11,22 @@ use App\Http\Controllers\Admin\HRInterviewController;
 Route::get('/interview/form/{token}', [InterviewController::class, 'form'])->name('interview.form');
 Route::post('/interview/submit/{token}', [InterviewController::class, 'submit'])->name('interview.submit');
 
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
+
 Route::get('/', function () {
-    return view('auth.login');
+    return view('frontend.companylist');
 });
+
+Route::get('/offer-list', function () {
+    return view('frontend.offerlist');
+});
+
+Route::get('/role-summary', function () {
+    return view('frontend.rolesummary');
+})->name('role-summary');
+
 
 Route::prefix('admin')->group(function () {
 
