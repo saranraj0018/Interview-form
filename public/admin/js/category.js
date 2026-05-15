@@ -6,7 +6,7 @@ $(document).ready(function () {
         let modal = document.getElementById("categoryModal");
         let alpine = Alpine.$data(modal);
 
-        alpine.form = { category_id: 0, name: '' };
+        alpine.form = { category_id: 0, email: '', person_name: '', designation: '', level: '' };
 
         alpine.open = true;
 
@@ -22,7 +22,10 @@ $(document).ready(function () {
         let alpine = Alpine.$data(modal);
 
         alpine.form.category_id = $(this).data("id");
-        alpine.form.name = $(this).data("name");
+        alpine.form.email = $(this).data("email");
+        alpine.form.person_name = $(this).data("person-name");
+        alpine.form.designation = $(this).data("designation");
+        alpine.form.level = $(this).data("level");
 
         alpine.open = true;
 
@@ -48,7 +51,7 @@ $(document).ready(function () {
                     let alpine = Alpine.$data(modal);
 
                     alpine.open = false;
-                    alpine.form = { category_id: 0, name: '' };
+                    alpine.form = { category_id: 0, email: '', person_name: '', designation: '', level: '' };
 
                     document.getElementById("categoryForm").reset();
                     reloadCategoryList();
@@ -85,7 +88,7 @@ $(document).ready(function () {
             "POST",
             function (res) {
                 if (res.success) {
-                    showToast("Email deleted successfully!", "success", 2000);
+                    showToast("Data deleted successfully!", "success", 2000);
                     reloadCategoryList();
                 } else {
                     showToast(res.message, "error", 2000);

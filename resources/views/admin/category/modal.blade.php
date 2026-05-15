@@ -1,5 +1,5 @@
 <div id="categoryModal"
-     x-data="{ open:false, form: { name: '', category_id: 0 } }"
+     x-data="{ open:false, form: {category_id: 0, email: '', person_name: '', designation: '', level: ''} }"
      x-show="open"
      class="fixed inset-0 flex items-center justify-center z-50"
      style="display:none">
@@ -17,10 +17,42 @@
             <!-- Email -->
             <div>
                 <label class="block text-gray-700 font-medium mb-2">Email</label>
-                <input type="email" name="category_name" id="category_name"
-                       x-model="form.name" required
+                <input type="email" name="email" id="email"
+                       x-model="form.email" required
                        placeholder="Enter email"
                        class="form-input w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#ea2498]">
+            </div>
+
+            <!-- Person Name -->
+            <div>
+                <label class="block text-gray-700 font-medium mb-2">Person Name</label>
+                <input type="text" name="person_name" id="person_name"
+                       x-model="form.person_name"
+                       placeholder="Enter person name"
+                       class="form-input w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#ea2498]">
+            </div>
+
+            <!-- Designation -->
+            <div>
+                <label class="block text-gray-700 font-medium mb-2">Designation</label>
+                <input type="text" name="designation" id="designation"
+                       x-model="form.designation"
+                       placeholder="Enter designation"
+                       class="form-input w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#ea2498]">
+            </div>
+
+            <!-- Level -->
+            <div>
+                <label class="block text-gray-700 font-medium mb-2">Level</label>
+                <select name="level" id="level"
+                        x-model="form.level"
+                        class="form-input w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#ea2498]">
+                        <option value="">Select Level</option>
+                        <option value="1">Level 1</option>
+                        <option value="2">Level 2</option>
+                        <option value="3">Level 3</option>
+                        <option value="4">Level 4</option>
+                </select>
             </div>
 
             <!-- Buttons -->

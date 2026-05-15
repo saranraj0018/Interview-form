@@ -17,12 +17,15 @@ class CategoryController extends Controller {
     public function save(Request $request) {
 
         $validator = Validator::make($request->all(), [
-            'category_name' => [
+            'email' => [
                 'required',
                 'email',
                 'max:255',
-                Rule::unique('categories', 'name')->ignore($request->category_id),
+                Rule::unique('categories', 'email')->ignore($request->category_id),
             ],
+            'person_name' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'level' => 'required|in:1,2,3,4',
         ]);
 
         if ($validator->fails()) {
@@ -34,13 +37,16 @@ class CategoryController extends Controller {
 
         if (!empty($request['category_id'])) {
             $category = Category::find($request['category_id']);
-            $message = 'Email Updated successfully';
+            $message = 'Data  Updated successfully';
         } else {
             $category = new Category();
-            $message = 'Email saved successfully';
+            $message = 'Data  saved successfully';
         }
 
-        $category->name = $request->category_name;
+        $category->email = $request->email;
+        $category->person_name = $request->person_name;
+        $category->designation = $request->designation;
+        $category->level = $request->level;
         $category->save();
 
         return response()->json([
