@@ -13,6 +13,9 @@
                 <tr class="bg-[#ea2498] text-white text-sm uppercase tracking-wider">
                     <th class="px-3 py-2">ID</th>
                     <th class="px-3 py-2">Email</th>
+                    <th class="px-3 py-2">Person Name</th>
+                    <th class="px-3 py-2">Designation</th>
+                    <th class="px-3 py-2">Level</th>
                     <th class="px-3 py-2">Created Date</th>
                     <th class="px-3 py-2 text-center">Actions</th>
                 </tr>
@@ -26,7 +29,21 @@
                         </td>
 
                         <td class="px-4 py-3">
-                            {{ $category->name }}
+                            {{ $category->email }}
+                        </td>
+
+                        <td class="px-4 py-3">
+                            {{ $category->person_name }}
+                        </td>
+
+                        <td class="px-4 py-3">
+                            {{ $category->designation }}
+                        </td>
+
+                        <td class="px-4 py-3">
+                            <span class="px-2 py-1 text-xs rounded bg-pink-100 text-pink-700">
+                           Level {{ $category->level }}
+                        </span>
                         </td>
 
                         <td class="px-4 py-3">
@@ -38,7 +55,10 @@
                             <button
                                 class="text-blue-600 hover:text-blue-800 transition editCategoryBtn"
                                 data-id="{{ $category->id }}"
-                                data-name="{{ $category->name }}">
+                                data-email="{{ $category->email }}"
+                                data-person-name="{{ $category->person_name }}"
+                                data-designation="{{ $category->designation }}"
+                                data-level="{{ $category->level }}">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
 
