@@ -1,25 +1,3 @@
-@php
-$responsibilities = [
-'Plan and implement admission marketing strategies.',
-'Generate and convert student leads.',
-'Coordinate admission follow-ups.',
-'Manage digital campaigns and promotions.',
-'Organize seminars, fairs, and outreach events.',
-'Monitor campaign performance and ROI.',
-];
-@endphp
-
-@php
-$skills = [
-'Communication',
-'CRM',
-'Leadership',
-'Marketing',
-'Reporting',
-'React Js',
-];
-@endphp
-
 <div class="min-h-screen bg-gradient-to-b from-[#f8fbff] to-[#eef3f8] py-12">
 
     <div class="max-w-[1180px] mx-auto px-4">
@@ -51,17 +29,16 @@ $skills = [
                         font-bold text-[#0b2c5f]
                         leading-tight mt-5">
 
-                        Marketing Manager <br>
-                        Admissions
+                       {{ $job->job_title }}
 
                     </h1>
 
                     <!-- INFO -->
-                    <div class="flex flex-wrap items-center
+                    <div class="items-center
                         gap-5 mt-6">
 
                         <!-- LOCATION -->
-                        <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-3 mb-4">
 
                             <div class="w-11 h-11 rounded-2xl
                                 bg-[#eef4ff]
@@ -86,7 +63,7 @@ $skills = [
                                 <p class="text-[15px]
                                     font-medium text-[#334155]">
 
-                                    Coimbatore, India
+                                 {{ $job->location }}
 
                                 </p>
 
@@ -120,7 +97,7 @@ $skills = [
                                 <p class="text-[15px]
                                     font-medium text-[#334155]">
 
-                                    3–6 Years
+                                  {{ $job->experience }}
 
                                 </p>
 
@@ -183,14 +160,7 @@ $skills = [
                     <p class="text-[16px]
                         leading-[32px]
                         text-[#475569]">
-
-                        The Admission Marketing Manager is responsible for
-                        planning, executing, and managing marketing strategies
-                        to increase student admissions. The role focuses on
-                        lead generation, brand visibility, and conversion,
-                        working closely with admissions, digital marketing,
-                        and outreach teams.
-
+                      {{ $job->role_summary }}
                     </p>
 
                 </div>
@@ -263,57 +233,34 @@ $skills = [
 
                     </h2>
 
-                    <ul class="space-y-4">
+                   <ul class="space-y-4">
 
-                        <li class="flex gap-3">
+    @foreach($qualifications as $qualification)
 
-                            <div class="w-2.5 h-2.5
-                                rounded-full bg-[#0b2c5f]
-                                mt-2"></div>
+    @if(trim($qualification) != '')
 
-                            <p class="text-[15px]
-                                text-[#475569]
-                                leading-relaxed">
+    <li class="flex gap-3">
 
-                                Bachelor’s degree in Marketing or Business Administration.
+        <div class="w-2.5 h-2.5
+            rounded-full bg-[#0b2c5f]
+            mt-2">
+        </div>
 
-                            </p>
+        <p class="text-[15px]
+            text-[#475569]
+            leading-relaxed">
 
-                        </li>
+            {{ $qualification }}
 
-                        <li class="flex gap-3">
+        </p>
 
-                            <div class="w-2.5 h-2.5
-                                rounded-full bg-[#0b2c5f]
-                                mt-2"></div>
+    </li>
 
-                            <p class="text-[15px]
-                                text-[#475569]
-                                leading-relaxed">
+    @endif
 
-                                MBA preferred.
+    @endforeach
 
-                            </p>
-
-                        </li>
-
-                        <li class="flex gap-3">
-
-                            <div class="w-2.5 h-2.5
-                                rounded-full bg-[#0b2c5f]
-                                mt-2"></div>
-
-                            <p class="text-[15px]
-                                text-[#475569]
-                                leading-relaxed">
-
-                                Admission marketing experience is an advantage.
-
-                            </p>
-
-                        </li>
-
-                    </ul>
+</ul>
 
                 </div>
 
@@ -355,7 +302,7 @@ $skills = [
                             </div>
 
                             <span class="text-[14px] font-medium">
-                                {{ $skill }}
+                              {{ trim($skill) }}
                             </span>
 
                         </div>

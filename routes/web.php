@@ -7,25 +7,24 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\InterviewController;
 use App\Http\Controllers\Admin\HRInterviewController;
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\CompanyController;
 
+//interview form routes
 Route::get('/interview/form/{token}', [InterviewController::class, 'form'])->name('interview.form');
 Route::post('/interview/submit/{token}', [InterviewController::class, 'submit'])->name('interview.submit');
 
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
+//company list route
+Route::get('/', [CompanyController::class, 'companyList']);
 
-Route::get('/', function () {
-    return view('frontend.companylist');
-});
+//company offer list route
+Route::get('/offer-list/{company}', [CompanyController::class, 'offerList']);
 
-Route::get('/offer-list', function () {
-    return view('frontend.offerlist');
-});
+//role summary route
+Route::get('/role-summary/{id}', [CompanyController::class, 'roleSummary'])
+    ->name('role-summary');
 
-Route::get('/role-summary', function () {
-    return view('frontend.rolesummary');
-})->name('role-summary');
+
+
 
 
 Route::prefix('admin')->group(function () {
