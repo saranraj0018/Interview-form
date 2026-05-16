@@ -26,6 +26,10 @@ Route::get('/role-summary/{id}', [CompanyController::class, 'roleSummary'])
 
 
 
+Route::get('/personal-data', function () {
+    return view('frontend.personaldata');
+})->name('personal.data');
+
 
 Route::prefix('admin')->group(function () {
 
