@@ -51,17 +51,17 @@ $skills = [
                         font-bold text-[#0b2c5f]
                         leading-tight mt-5">
 
-                        Marketing Manager <br>
+                        Marketing Manager
                         Admissions
 
                     </h1>
 
                     <!-- INFO -->
-                    <div class="flex flex-wrap items-center
+                    <div class=" items-center
                         gap-5 mt-6">
 
                         <!-- LOCATION -->
-                        <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-3 mb-4">
 
                             <div class="w-11 h-11 rounded-2xl
                                 bg-[#eef4ff]
@@ -136,21 +136,21 @@ $skills = [
                 <div class="flex flex-col items-start lg:items-end gap-4">
 
                     <!-- BUTTON -->
-                    <button class="bg-gradient-to-r
-                        from-[#0b2c5f]
-                        to-[#123d7d]
-                        hover:scale-[1.03]
-                        text-white
-                        text-[15px]
-                        font-semibold
-                        px-7 py-3.5
-                        rounded-2xl
-                        shadow-lg
-                        transition-all duration-300">
+                    <a href="{{ url('/personal-data') }}" class="inline-block bg-gradient-to-r
+    from-[#0b2c5f]
+    to-[#123d7d]
+    hover:scale-[1.03]
+    text-white
+    text-[15px]
+    font-semibold
+    px-7 py-3.5
+    rounded-2xl
+    shadow-lg
+    transition-all duration-300">
 
                         Apply Now
 
-                    </button>
+                    </a>
 
                 </div>
 

@@ -27,6 +27,10 @@ Route::get('/role-summary', function () {
     return view('frontend.rolesummary');
 })->name('role-summary');
 
+Route::get('/personal-data', function () {
+    return view('frontend.personaldata');
+})->name('personal.data');
+
 
 Route::prefix('admin')->group(function () {
 
