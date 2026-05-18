@@ -4,5 +4,4 @@
 
 @include('frontend.home.index')
 
-
 @endsection

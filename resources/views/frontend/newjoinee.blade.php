@@ -2,6 +2,6 @@
 
 @section('content')
 
-@include('frontend.rolesummary.index')
+@include('frontend.newjoinee.index')
 
 @endsection
