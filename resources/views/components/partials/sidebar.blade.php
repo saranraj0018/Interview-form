@@ -15,6 +15,7 @@
         <x-menu.item route="admin.dashboard" name="Dashboard" icon="fa-home" />
         <x-menu.item route="admin.company.view" name="Company" icon="fa-building" />
         <x-menu.item route="admin.job.view" name="Job Post" icon="fa-briefcase" />
+        <x-menu.item route="admin.candidates.index" name="Candidates" icon="fa-users" />
         <x-menu.item route="view.category" name="Email" icon="fa-list" />
         <x-menu.item route="view.interview" name="Interviews" icon="fa-briefcase" />
         <x-menu.item route="admin.hr.view" name="HR Reviews" icon="fa-users" />

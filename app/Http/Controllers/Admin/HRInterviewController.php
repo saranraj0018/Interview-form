@@ -12,6 +12,7 @@ class HRInterviewController extends Controller
     public function view()
     {
         $interviews = Interview::with([
+            'candidate',
             'emails.category',
            'emails.feedback'
         ])->paginate(10);

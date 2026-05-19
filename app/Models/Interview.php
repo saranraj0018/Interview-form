@@ -41,4 +41,9 @@ public function emails()
 {
     return $this->hasMany(InterviewEmail::class);
 }
+
+public function candidate()
+{
+    return $this->belongsTo(Candidate::class);
+}
 }

@@ -1,3 +1,13 @@
+<form method="POST" action="{{ route('personal.data.save') }}">
+    @csrf
+    <input type="hidden" name="job_post_id" value="{{ $jobPost->id }}">
+
+    @if(session('error'))
+    <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+        {{ session('error') }}
+    </div>
+  @endif
+
 <div class="min-h-screen py-10 px-4">
     <div class="max-w-[1100px] mx-auto bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden">
 
@@ -16,26 +26,38 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
                 <div>
                     <label class="text-sm font-medium text-gray-700">Date</label>
-                    <input type="date"
+                    <input type="date" name="date" value="{{ old('date') }}"
                         class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        @error('date')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
                     <label class="text-sm font-medium text-gray-700">Time</label>
-                    <input type="time"
+                    <input type="time" name="time" value="{{ old('time') }}"
                         class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        @error('time')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
                     <label class="text-sm font-medium text-gray-700">Source</label>
-                    <input type="text" placeholder="Enter source"
+                    <input type="text" name="source" value="{{ old('source') }}"
                         class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
+                        @error('source')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
                     <label class="text-sm font-medium text-gray-700">Position Applied For</label>
-                    <input type="text" placeholder="Position"
+                    <input type="text" name="position_applied" value="{{ old('position_applied') }}"
                         class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
+                        @error('position_applied')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
 
@@ -48,8 +70,11 @@
                         Enter Your Full Name
                     </label>
 
-                    <input type=" text" placeholder="Enter Your Full Name"
+                    <input type=" text" name="full_name" value="{{ old('full_name') }}"
                         class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
+                        @error('full_name')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Contact Address -->
@@ -58,8 +83,11 @@
                         Contact Address
                     </label>
 
-                    <textarea rows="1" placeholder="Enter Your Address"
-                        class=" w-full mt-2 border border-gray-300 rounded-xl px-4 py-3"></textarea>
+                    <textarea rows="1" name="contact_address" placeholder="Enter Your Address"
+                        class=" w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">{{ old('contact_address') }}</textarea>
+                        @error('contact_address')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
             </div>
@@ -68,26 +96,38 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
                 <div>
                     <label class="text-sm font-medium text-gray-700">Pin Code</label>
-                    <input type="number" placeholder="Enter Your Pin Code"
+                    <input type="number" name="pin_code" value="{{ old('pin_code') }}" placeholder="Enter Your Pin Code"
                         class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
+                        @error('pin_code')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
                     <label class="text-sm font-medium text-gray-700">Email ID</label>
-                    <input type="email" placeholder="Enter Your Email" class=" w-full mt-2 border border-gray-300
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="Enter Your Email" class=" w-full mt-2 border border-gray-300
                         rounded-xl px-4 py-3">
+                        @error('email')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <div>
-                    <label class="text-sm font-medium text-gray-700">Phone</label>
-                    <input type="number" placeholder="Enter Your Phone Number" class=" w-full mt-2 border border-gray-300
-                        rounded-xl px-4 py-3">
-                </div>
-
-                <div>
+                  <div>
                     <label class="text-sm font-medium text-gray-700">Mobile</label>
-                    <input type="number" placeholder="Enter Your Mobile Number"
+                    <input type="number" name="mobile" value="{{ old('mobile') }}" placeholder="Enter Your Mobile Number"
                         class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
+                        @error('mobile')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="text-sm font-medium text-gray-700">Alternate Mobile</label>
+                    <input type="number" name="phone" value="{{ old('phone') }}" placeholder="Enter Your  Number" class=" w-full mt-2 border border-gray-300
+                        rounded-xl px-4 py-3">
+                        @error('phone')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
 
@@ -95,31 +135,43 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
                 <div>
                     <label class="text-sm font-medium text-gray-700">Date of Birth</label>
-                    <input type="date" class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
+                    <input type="date" name="date_of_birth" value="{{ old('date_of_birth') }}" class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
+                    @error('date_of_birth')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
                     <label class="text-sm font-medium text-gray-700">Age</label>
-                    <input type="number" placeholder="Enter Your Age"
+                    <input type="number" name="age" value="{{ old('age') }}"     placeholder="Enter Your Age"
                         class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
+                    @error('age')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
                     <label class="text-sm font-medium text-gray-700">Gender</label>
-                    <select class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
-                        <option>Select</option>
-                        <option>Male</option>
-                        <option>Female</option>
+                    <select name="gender" class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
+                        <option value="">Select</option>
+                        <option value="male" {{ old('gender') === 'male' ? 'selected' : '' }}>Male</option>
+                        <option value="female" {{ old('gender') === 'female' ? 'selected' : '' }}>Female</option>
                     </select>
+                    @error('gender')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
                     <label class="text-sm font-medium text-gray-700">Marital Status</label>
-                    <select class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
-                        <option>Select</option>
-                        <option>Single</option>
-                        <option>Married</option>
+                    <select name="marital_status" class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
+                        <option value="">Select</option>
+                        <option value="single" {{ old('marital_status') === 'single' ? 'selected' : '' }}>Single</option>
+                        <option value="married" {{ old('marital_status') === 'married' ? 'selected' : '' }}>Married</option>
                     </select>
+                    @error('marital_status')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
 
@@ -129,7 +181,7 @@
                     <label class="text-sm font-medium text-gray-700">
                         Current Gross (Per Annum)
                     </label>
-                    <input type="text" placeholder="Enter Your Current Gross" class=" w-full mt-2 border border-gray-300 rounded-xl
+                    <input type="text" name="current_gross" value="{{ old('current_gross') }}" placeholder="Enter Your Current Gross" class=" w-full mt-2 border border-gray-300 rounded-xl
                         px-4 py-3">
                 </div>
 
@@ -137,15 +189,18 @@
                     <label class="text-sm font-medium text-gray-700">
                         Expected Gross (Per Annum)
                     </label>
-                    <input type="text" placeholder="Enter Your Expected Gross"
+                    <input type="text" name="expected_gross" value="{{ old('expected_gross') }}" placeholder="Enter Your Expected Gross"
                         class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
+                    @error('expected_gross')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
                     <label class="text-sm font-medium text-gray-700">
                         Total Years of Experience
                     </label>
-                    <input type="number" placeholder="Enter Your Years of Experience"
+                    <input type="number" name="experience" value="{{ old('experience') }}" placeholder="Enter Your Years of Experience"
                         class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
                 </div>
             </div>
@@ -156,7 +211,7 @@
                     Current Company Notice Period
                 </label>
 
-                <input type="text" placeholder="Enter The Notice Period"
+                <input type="text" name="notice_period" value="{{ old('notice_period') }}" placeholder="Enter The Notice Period"
                     class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
             </div>
 
@@ -241,7 +296,7 @@
 
                                 <td class="border p-2">
 
-                                    <input type="text" placeholder="Enter Degree" class="w-full
+                                    <input type="text" name="degree[]" value="{{ old('degree.0') }}" placeholder="Enter Degree" class="w-full
                             min-w-[120px]
                             rounded-lg
                             px-3 py-2
@@ -254,7 +309,7 @@
 
                                 <td class="border p-2">
 
-                                    <input type="text" placeholder="Division" class="w-full
+                                    <input type="text" name="division[]" value="{{ old('division.0') }}" placeholder="Division" class="w-full
                             min-w-[120px]
                             rounded-lg
                             px-3 py-2
@@ -267,7 +322,7 @@
 
                                 <td class="border p-2">
 
-                                    <input type="text" placeholder="College" class="w-full
+                                    <input type="text" name="college[]" value="{{ old('college.0') }}" placeholder="College" class="w-full
                             min-w-[180px]
                             rounded-lg
                             px-3 py-2
@@ -280,7 +335,7 @@
 
                                 <td class="border p-2">
 
-                                    <input type="text" placeholder="University" class="w-full
+                                    <input type="text" name="university[]" value="{{ old('university.0') }}" placeholder="University" class="w-full
                             min-w-[180px]
                             rounded-lg
                             px-3 py-2
@@ -293,7 +348,7 @@
 
                                 <td class="border p-2">
 
-                                    <input type="text" placeholder="%" class="w-full
+                                    <input type="text" name="marks[]" value="{{ old('marks.0') }}" placeholder="Marks" class="w-full
                             min-w-[100px]
                             rounded-lg
                             px-3 py-2
@@ -306,7 +361,7 @@
 
                                 <td class="border p-2">
 
-                                    <input type="text" placeholder="Subjects" class="w-full
+                                    <input type="text" name="subjects[]" value="{{ old('subjects.0') }}" placeholder="Subjects" class="w-full
                             min-w-[180px]
                             rounded-lg
                             px-3 py-2
@@ -319,7 +374,7 @@
 
                                 <td class="border p-2">
 
-                                    <input type="text" placeholder="Year" class="w-full
+                                    <input type="text" name="year_of_passing[]" value="{{ old('year_of_passing.0') }}" placeholder="Year" class="w-full
                             min-w-[120px]
                             rounded-lg
                             px-3 py-2
@@ -349,6 +404,10 @@
                         </tbody>
 
                     </table>
+
+                    @error('degree.*')
+                <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+                @enderror
 
                 </div>
 
@@ -435,7 +494,7 @@
 
                                 <td class="border p-2">
 
-                                    <input type="text" name="organization[]" placeholder="Organization" class="w-full
+                                    <input type="text" name="organization[]" value="{{ old('organization.0') }}" placeholder="Organization" class="w-full
                             min-w-[180px]
                             rounded-lg
                             px-3 py-2
@@ -448,7 +507,7 @@
 
                                 <td class="border p-2">
 
-                                    <input type="text" name="designation[]" placeholder="Designation" class="w-full
+                                    <input type="text" name="designation[]" value="{{ old('designation.0') }}" placeholder="Designation" class="w-full
                             min-w-[150px]
                             rounded-lg
                             px-3 py-2
@@ -461,7 +520,7 @@
 
                                 <td class="border p-2">
 
-                                    <input type="date" name="from_date[]" class="w-full
+                                    <input type="date" name="from_date[]" value="{{ old('from_date.0') }}" class="w-full
                             min-w-[150px]
                             rounded-lg
                             px-3 py-2
@@ -474,7 +533,7 @@
 
                                 <td class="border p-2">
 
-                                    <input type="date" name="to_date[]" class="w-full
+                                    <input type="date" name="to_date[]" value="{{ old('to_date.0') }}" class="w-full
                             min-w-[150px]
                             rounded-lg
                             px-3 py-2
@@ -487,7 +546,7 @@
 
                                 <td class="border p-2">
 
-                                    <input type="text" name="gross_salary[]" placeholder="Gross Salary" class="w-full
+                                    <input type="text" name="gross_salary[]" value="{{ old('gross_salary.0') }}" placeholder="Gross Salary" class="w-full
                             min-w-[160px]
                             rounded-lg
                             px-3 py-2
@@ -500,7 +559,7 @@
 
                                 <td class="border p-2">
 
-                                    <input type="text" name="annual_ctc[]" placeholder="Annual CTC" class="w-full
+                                    <input type="text" name="annual_ctc[]" value="{{ old('annual_ctc.0') }}" placeholder="Annual CTC" class="w-full
                             min-w-[160px]
                             rounded-lg
                             px-3 py-2
@@ -513,7 +572,7 @@
 
                                 <td class="border p-2">
 
-                                    <input type="text" name="reason_for_leaving[]" placeholder="Reason" class="w-full
+                                    <input type="text" name="reason_for_leaving[]" value="{{ old('reason_for_leaving.0') }}" placeholder="Reason" class="w-full
                             min-w-[220px]
                             rounded-lg
                             px-3 py-2
@@ -543,6 +602,9 @@
                         </tbody>
 
                     </table>
+                @error('organization.*')
+                <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+                @enderror
 
                 </div>
 
@@ -557,7 +619,7 @@
                         Career Break (If Any)
                     </label>
 
-                    <textarea rows="2"
+                    <textarea rows="2"  name="career_break"
                         class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
                 </div>
 
@@ -568,7 +630,7 @@
                         (E.g.: Oracle, Java, Network etc.)
                     </label>
 
-                    <textarea rows="2"
+                    <textarea rows="2" name="certifications"
                         class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
                 </div>
 
@@ -621,12 +683,14 @@
                                 </td>
 
                                 <td class="border border-gray-200 p-2">
-                                    <input type="text"
+                                    <input type="text" name="languages[{{ $i }}]"
+                                     value="{{ old('languages.' . $i) }}"
                                         class="w-full rounded-lg px-3 py-2 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 </td>
 
                                 @for ($j = 1; $j <= 4; $j++) <td class="border border-gray-200 p-3">
-                                    <input type="checkbox"
+                                    <input type="checkbox"  name="language_skills[{{ $i }}][{{ $j }}]"
+                               {{ old("language_skills.$i.$j") ? 'checked' : '' }}
                                         class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
                                     </td>
                                     @endfor
@@ -636,12 +700,14 @@
                                     </td>
 
                                     <td class="border border-gray-200 p-2">
-                                        <input type="text"
+                                        <input type="text" name="languages[{{ $i + 3 }}]"
+                                 value="{{ old('languages.' . ($i + 3)) }}"
                                             class="w-full rounded-lg px-3 py-2 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     </td>
 
                                     @for ($j = 1; $j <= 4; $j++) <td class="border border-gray-200 p-3">
-                                        <input type="checkbox"
+                                        <input type="checkbox" name="language_skills[{{ $i + 3 }}][{{ $j }}]"
+                                    {{ old("language_skills." . ($i + 3) . ".$j") ? 'checked' : '' }}
                                             class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
                                         </td>
                                         @endfor
@@ -653,6 +719,11 @@
                         </tbody>
 
                     </table>
+                    @if($errors->has('languages.*'))
+            <p class="text-red-500 text-sm mt-2">
+                Please enter language fields
+            </p>
+        @endif
 
                 </div>
 
@@ -850,6 +921,18 @@
                         </tbody>
 
                     </table>
+                    @if(
+            $errors->has('family_name.*') ||
+            $errors->has('family_age.*') ||
+            $errors->has('family_relationship.*') ||
+            $errors->has('family_occupation.*') ||
+            $errors->has('family_dependent.*') ||
+            $errors->has('family_contact.*')
+        )
+            <p class="text-red-500 text-sm mt-2">
+                Please fill all family details properly
+            </p>
+        @endif
 
                 </div>
 
@@ -867,23 +950,28 @@
                     <div class="mt-4 flex gap-8">
 
                         <label class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer">
-                            <input type="radio" name="sunday_work" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                            <input type="radio" name="sunday_work" value="Yes" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
                             Yes
                         </label>
 
                         <label class="flex items-center gap-3 text-sm text-gray-700 cursor-pointer">
-                            <input type="radio" name="sunday_work" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                            <input type="radio" name="sunday_work" value="No" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
                             No
                         </label>
 
                     </div>
-
+               @error('sunday_work')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="flex flex-col">
                     <label class="text-sm font-medium text-gray-700">Joining Date required</label>
-                    <input type="date"
+                    <input type="date" name="joining_date" value="{{ old('joining_date') }}"
                         class="w-full sm:max-w-[30%] mt-2 border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    @error('joining_date')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -894,7 +982,7 @@
                         If Yes, Please provide details.
                     </label>
 
-                    <textarea rows="1"
+                    <textarea rows="1" name="litigation"
                         class="w-full mt-3 border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
 
                 </div>
@@ -960,7 +1048,7 @@
                                 <!-- Name -->
                                 <td class="border border-gray-200 p-2">
 
-                                    <input type="text" placeholder="Enter Name" class="w-full
+                                    <input type="text" name="reference_name[]" placeholder="Enter Name" class="w-full
                             min-w-[200px]
                             rounded-lg
                             px-3 py-2
@@ -974,7 +1062,7 @@
                                 <!-- Designation -->
                                 <td class="border border-gray-200 p-2">
 
-                                    <input type="text" placeholder="Enter Designation" class="w-full
+                                    <input type="text" name="reference_designation[]" placeholder="Enter Designation" class="w-full
                             min-w-[200px]
                             rounded-lg
                             px-3 py-2
@@ -988,7 +1076,7 @@
                                 <!-- Mobile -->
                                 <td class="border border-gray-200 p-2">
 
-                                    <input type="text" placeholder="Enter Mobile Number" class="w-full
+                                    <input type="text" name="reference_mobile[]" placeholder="Enter Mobile Number" class="w-full
                             min-w-[180px]
                             rounded-lg
                             px-3 py-2
@@ -1002,7 +1090,7 @@
                                 <!-- Phone -->
                                 <td class="border border-gray-200 p-2">
 
-                                    <input type="text" placeholder="Enter Phone Number" class="w-full
+                                    <input type="text" name="reference_phone[]" placeholder="Enter the Number" class="w-full
                             min-w-[180px]
                             rounded-lg
                             px-3 py-2
@@ -1084,7 +1172,7 @@
                                 <!-- Name -->
                                 <td class="border border-gray-200 p-2">
 
-                                    <input type="text" placeholder="Enter Name" class="w-full
+                                    <input type="text" name="friend_name[]" placeholder="Enter Name" class="w-full
                             min-w-[200px]
                             rounded-lg
                             px-3 py-2
@@ -1098,7 +1186,7 @@
                                 <!-- Relationship -->
                                 <td class="border border-gray-200 p-2">
 
-                                    <input type="text" placeholder="Enter Relationship" class="w-full
+                                    <input type="text" name="friend_relationship[]" placeholder="Enter Relationship" class="w-full
                             min-w-[200px]
                             rounded-lg
                             px-3 py-2
@@ -1112,7 +1200,7 @@
                                 <!-- Mobile -->
                                 <td class="border border-gray-200 p-2">
 
-                                    <input type="text" placeholder="Enter Mobile Number" class="w-full
+                                    <input type="text" name="friend_mobile[]" placeholder="Enter Mobile Number" class="w-full
                             min-w-[180px]
                             rounded-lg
                             px-3 py-2
@@ -1126,7 +1214,7 @@
                                 <!-- Phone -->
                                 <td class="border border-gray-200 p-2">
 
-                                    <input type="text" placeholder="Enter Phone Number" class="w-full
+                                    <input type="text"  name="friend_phone[]" placeholder="Enter Phone Number" class="w-full
                             min-w-[180px]
                             rounded-lg
                             px-3 py-2
@@ -1158,9 +1246,11 @@
                     If Yes Please mention the name and your relationship with them:
                 </label>
 
-                <textarea rows="1"
-                    class="w-full mt-3 border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-
+                <textarea rows="1" name="employee_reference"
+                    class="w-full mt-3 border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('employee_reference') }}</textarea>
+                  @error('employee_reference')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
             </div>
 
             <!-- Declaration -->
@@ -1175,20 +1265,29 @@
 
                     <div>
                         <label class="text-sm font-medium text-gray-700">Date</label>
-                        <input type="date"
+                        <input type="date" name="declaration_date" value="{{ old('declaration_date') }}"
                             class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @error('declaration_date')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                     </div>
 
                     <div>
                         <label class="text-sm font-medium text-gray-700">Place</label>
-                        <input type="text" placeholder="Enter Your Place"
+                        <input type="text" name="place" placeholder="Enter Your Place" value="{{ old('place') }}"
                             class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
+                                @error('place')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                     </div>
 
                     <div>
                         <label class="text-sm font-medium text-gray-700">Signature</label>
-                        <input type="text" placeholder="Enter Your Signature"
+                        <input type="text" name="signature" placeholder="Enter Your Signature" value="{{ old('signature') }}"
                             class="w-full mt-2 border border-gray-300 rounded-xl px-4 py-3">
+                            @error('signature')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                     </div>
 
                 </div>
@@ -1226,6 +1325,8 @@
         </div>
     </div>
 </div>
+
+</form>
 
 
 
