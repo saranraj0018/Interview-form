@@ -4,6 +4,4 @@
 
 @include('frontend.personaldata.index')
 
-
-
 @endsection

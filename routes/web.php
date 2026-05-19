@@ -30,6 +30,14 @@ Route::get('/personal-data', function () {
     return view('frontend.personaldata');
 })->name('personal.data');
 
+Route::get('/new-joinee', function () {
+    return view('frontend.newjoinee');
+});
+
+Route::get('/successful', function () {
+    return view('frontend.successfulimage');
+});
+
 
 Route::prefix('admin')->group(function () {
 

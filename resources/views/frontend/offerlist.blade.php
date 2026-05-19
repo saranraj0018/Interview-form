@@ -4,5 +4,4 @@
 
 @include('frontend.offerlist.index')
 
-
 @endsection

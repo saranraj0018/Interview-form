@@ -4,5 +4,4 @@
 
 @include('frontend.companylist.index')
 
-
 @endsection
