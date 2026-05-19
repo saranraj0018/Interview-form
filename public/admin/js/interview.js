@@ -10,7 +10,7 @@ $(document).ready(function () {
             id: 0,
             position: '',
             department: '',
-            candidate_name: '',
+            candidate_id: '',
             interview_date: '',
             institution: '',
             categories: []
@@ -31,7 +31,7 @@ $(document).ready(function () {
         alpine.form.id = $(this).data("id");
         alpine.form.position = $(this).data("position");
         alpine.form.department = $(this).data("department");
-        alpine.form.candidate_name = $(this).data("candidate");
+        alpine.form.candidate_id = $(this).data("candidate");
         alpine.form.interview_date = $(this).data("date");
         alpine.form.institution = $(this).data("institution");
 
@@ -71,7 +71,7 @@ $(document).ready(function () {
                         id: 0,
                         position: '',
                         department: '',
-                        candidate_name: '',
+                        candidate_id: '',
                         interview_date: '',
                         institution: '',
                         categories: []

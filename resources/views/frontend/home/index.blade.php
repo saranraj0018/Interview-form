@@ -25,8 +25,15 @@
 
                 <div>
                     <p class="text-gray-500">Name of Candidate</p>
-                    <p class="font-semibold text-gray-800">{{ $interview->candidate_name }}</p>
+                    <p class="font-semibold text-gray-800">{{ $interview->candidate->full_name ?? '-' }}</p>
                 </div>
+
+         <div>
+            <p class="text-gray-500">Experience</p>
+            <p class="font-semibold text-gray-800">
+                {{ $interview->candidate->experience ?? 'Fresher' }}
+            </p>
+        </div>
 
                 <div>
                     <p class="text-gray-500">Department</p>
@@ -45,7 +52,43 @@
 
             </div>
 
+       <div class="border-t mt-6 pt-4">
+
+        <h3 class="text-base font-bold text-pink-600 mb-4">
+            Interviewer Details
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+
+            <div>
+                <p class="text-gray-500">Interviewer Name</p>
+
+                <p class="font-semibold text-gray-800">
+                    {{ $pivot->category->person_name ?? '-' }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-gray-500">Email</p>
+
+                <p class="font-semibold text-gray-800">
+                    {{ $pivot->category->email ?? '-' }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-gray-500">Designation</p>
+
+                <p class="font-semibold text-gray-800">
+                    {{ $pivot->category->designation ?? '-' }}
+                </p>
+            </div>
+
         </div>
+
+    </div>
+
+</div>
 
         @php
         $attributes = [
@@ -60,6 +103,7 @@
         'Appearance (Dress Code, Grooming etc.)',
         'Presentation Skill',
         'Computer Skills',
+        'AI Skills',
         ];
         @endphp
 
@@ -183,7 +227,7 @@
                         <td colspan="4" class="p-3 text-center">
 
                             <span class="text-2xl font-bold text-blue-700">
-                                <span id="totalMarks">0</span> / 55
+                                <span id="totalMarks">0</span> / 60
                             </span>
 
                         </td>
@@ -288,7 +332,6 @@
                         <tr class="text-gray-600">
                             <th class="p-2">S No</th>
                             <th class="p-2">Name & Designation</th>
-                            <th class="p-2">Signature</th>
                             <th class="p-2">Date</th>
                             <th class="p-2">Comments</th>
                         </tr>
@@ -296,40 +339,91 @@
 
                     <!-- ✅ FIRST ROW ONLY REQUIRED -->
 
-                    <tbody>
-                        @for ($i = 1; $i <= 3; $i++) <tr class="bg-gray-50 hover:bg-blue-50 transition">
+                   <tbody>
 
-                            <td class="p-2 text-center font-medium">
-                                {{ $i }}
-                            </td>
+    {{-- Previous Levels --}}
+    @php
+        $rowNo = 1;
+    @endphp
 
-                            <!-- Name -->
-                            <td class="p-2">
-                                <input type="text" name="panel[{{ $i }}][name]"
-                                    class="w-full border border-gray-300 rounded-lg p-2 outline-none">
-                            </td>
+    @foreach($previousRounds as $round)
 
-                            <!-- Signature -->
-                            <td class="p-2">
-                                <input type="text" name="panel[{{ $i }}][signature]"
-                                    class="w-full border border-gray-300 rounded-lg p-2 outline-none">
-                            </td>
+        @foreach($round->panels as $panel)
 
-                            <!-- Date -->
-                            <td class="p-2">
-                                <input type="date" name="panel[{{ $i }}][date]"
-                                    class="w-full border border-gray-300 rounded-lg p-2 outline-none">
-                            </td>
+            <tr class="bg-gray-100">
 
-                            <!-- Comments -->
-                            <td class="p-2">
-                                <input type="text" name="panel[{{ $i }}][comments]"
-                                    class="w-full border border-gray-300 rounded-lg p-2 outline-none">
-                            </td>
+                <td class="p-2 text-center font-medium">
+                    {{ $rowNo++ }}
+                </td>
 
-                            </tr>
-                            @endfor
-                    </tbody>
+                <!-- Name -->
+                <td class="p-2">
+
+                    <input type="text"
+                           value="{{ $panel->name }}"
+                           readonly
+                           class="w-full border border-gray-300 bg-gray-100 rounded-lg p-2 outline-none">
+
+                </td>
+
+                <!-- Date -->
+                <td class="p-2">
+
+                    <input type="date"
+                           value="{{ $panel->date }}"
+                           readonly
+                           class="w-full border border-gray-300 bg-gray-100 rounded-lg p-2 outline-none">
+
+                </td>
+
+                <!-- Comments -->
+                <td class="p-2">
+
+                    <input type="text"
+                           value="{{ $panel->comments }}"
+                           readonly
+                           class="w-full border border-gray-300 bg-gray-100 rounded-lg p-2 outline-none">
+
+                </td>
+
+            </tr>
+
+        @endforeach
+
+    @endforeach
+
+
+    {{-- Current Level Empty Row --}}
+    <tr class="bg-blue-50">
+
+        <td class="p-2 text-center font-medium">
+            {{ $rowNo }}
+        </td>
+
+        <!-- Name -->
+        <td class="p-2">
+            <input type="text"
+                   name="panel[1][name]"
+                   class="w-full border border-gray-300 rounded-lg p-2 outline-none">
+        </td>
+
+        <!-- Date -->
+        <td class="p-2">
+            <input type="date"
+                   name="panel[1][date]"
+                   class="w-full border border-gray-300 rounded-lg p-2 outline-none">
+        </td>
+
+        <!-- Comments -->
+        <td class="p-2">
+            <input type="text"
+                   name="panel[1][comments]"
+                   class="w-full border border-gray-300 rounded-lg p-2 outline-none">
+        </td>
+
+    </tr>
+
+</tbody>
 
                 </table>
             </div>
@@ -402,11 +496,28 @@
 
         const form = document.querySelector("form");
 
+        const overallComments = document.querySelector(
+        'textarea[name="comments"]'
+    );
+
+    const panelComment = document.querySelector(
+        'input[name="panel[1][comments]"]'
+    );
+
+    if (overallComments && panelComment) {
+
+        overallComments.addEventListener("input", function () {
+
+            panelComment.value = this.value;
+
+        });
+
+    }
+
         const radios = document.querySelectorAll(".rating-radio");
 
         const totalMarks = document.getElementById("totalMarks");
 
-        // ✅ Overall Rating Count
         function calculateTotal() {
 
             let total = 0;
@@ -534,7 +645,6 @@
 
             const panelFields = {
                 'panel[1][name]': 'Panel member name is required',
-                'panel[1][signature]': 'Panel signature is required',
                 'panel[1][date]': 'Panel date is required',
                 'panel[1][comments]': 'Panel comments is required'
             };

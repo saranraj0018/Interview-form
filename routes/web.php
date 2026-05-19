@@ -2,12 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Authenticate;
+use App\Http\Controllers\Admin\CandidateController as AdminCandidateController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\InterviewController;
 use App\Http\Controllers\Admin\HRInterviewController;
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\HRController;
 
 //interview form routes
 Route::get('/interview/form/{token}', [InterviewController::class, 'form'])->name('interview.form');
@@ -23,12 +26,14 @@ Route::get('/offer-list/{company}', [CompanyController::class, 'offerList']);
 Route::get('/role-summary/{id}', [CompanyController::class, 'roleSummary'])
     ->name('role-summary');
 
+//personal data route
+Route::post('/personal-data/save', [CandidateController::class, 'savePersonalData'])->name('personal.data.save');
+Route::get('/personal-data/{job_post_id}', [CandidateController::class, 'create'])
+    ->name('personal.data');
 
-
-
-Route::get('/personal-data', function () {
-    return view('frontend.personaldata');
-})->name('personal.data');
+   //Final Select route 
+   Route::post('/hr/final-select/{id}', [HRController::class, 'finalSelect'])
+    ->name('admin.hr.final-select');
 
 Route::get('/new-joinee', function () {
     return view('frontend.newjoinee');
@@ -88,6 +93,10 @@ Route::prefix('admin')->group(function () {
             Route::post('/save', 'save')->name('admin.company.save');
             Route::post('/delete', 'destroy')->name('admin.company.delete');
         });
+
+        //candidate details
+        Route::get('/candidates', [AdminCandidateController::class, 'view'])->name('admin.candidates.index');
+        Route::get('/candidate/{id}', [AdminCandidateController::class, 'show'])->name('admin.candidates.show');
 
          Route::post('/user_logout', [Authenticate::class, 'user_logout'])->name('admin.user_logout');
 

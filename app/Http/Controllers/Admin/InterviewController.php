@@ -9,17 +9,18 @@ use App\Models\InterviewEmail;
 use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Candidate;
 use App\Mail\InterviewMail;
-
 use Illuminate\Support\Str;
 
 class InterviewController extends Controller {
 
     public function view() {
-        $interviews = Interview::with('categories')->paginate(10);
+        $interviews = Interview::with(['categories', 'candidate'])->paginate(10);
+        $candidates = Candidate::all();
         $categories = Category::all();
 
-        return view('admin.interview.view', compact('interviews', 'categories'));
+        return view('admin.interview.view', compact('interviews', 'categories', 'candidates'));
     }
 
     public function save(Request $request) {
@@ -27,7 +28,7 @@ class InterviewController extends Controller {
         $validator = Validator::make($request->all(), [
             'position' => 'required',
             'department' => 'required',
-            'candidate_name' => 'required',
+            'candidate_id' => 'required',
             'interview_date' => 'required|date',
             'institution' => 'required',
             'categories' => 'required|array'
@@ -50,7 +51,7 @@ class InterviewController extends Controller {
 
         $interview->position = $request->position;
         $interview->department = $request->department;
-        $interview->candidate_name = $request->candidate_name;
+        $interview->candidate_id = $request->candidate_id;
         $interview->interview_date = $request->interview_date;
         $interview->institution = $request->institution;
 
@@ -58,24 +59,43 @@ class InterviewController extends Controller {
 
         $syncData = [];
 
-        foreach ($request->categories as $categoryId) {
-            $token = Str::random(40);
-            $syncData[$categoryId] = [
-                'token' => $token,
-                'status' => 'pending'
-            ];
-            $email = Category::find($categoryId)->name;
+        $selectedCategories = Category::whereIn('id', $request->categories)
+    ->orderBy('level')
+    ->get();
 
-            $link = url('/interview/form/' . $token);
+$firstLevel = $selectedCategories->first();
 
-             try {
-                Mail::to($email)->send(new InterviewMail($link));
-            } catch (\Exception $e) {
+foreach ($selectedCategories as $cat) {
+
+    $token = Str::random(40);
+
+    $syncData[$cat->id] = [
+        'token' => $token,
+        'status' => 'pending'
+    ];
+}
+
+$interview->categories()->sync($syncData);
+
+if ($firstLevel) {
+
+   $pivot = InterviewEmail::where('interview_id', $interview->id)
+    ->where('category_id', $firstLevel->id)
+    ->first();
+
+if ($pivot) {
+
+   $token = $pivot->token;
+
+    $link = url('/interview/form/' . $token);
+          try {
+           Mail::to($firstLevel->email)
+        ->send(new InterviewMail($link));
+          } catch (\Exception $e) {
                 dd($e->getMessage());
-            }
-        }
-
-        $interview->categories()->sync($syncData);
+         }
+         }
+   }
 
         return response()->json([
             'success' => true,
@@ -105,7 +125,7 @@ class InterviewController extends Controller {
 
 public function form($token)
 {
-    $pivot = InterviewEmail::with('interview')
+    $pivot = InterviewEmail::with(['interview', 'category'])
         ->where('token', $token)
         ->first();
 
@@ -121,17 +141,33 @@ public function form($token)
         return view('frontend.interview.already-submitted');
     }
 
+     $previousRounds = InterviewEmail::with([
+        'panels',
+        'category'
+    ])
+    ->where('interview_id', $pivot->interview_id)
+    ->where('status', 'completed')
+    ->whereHas('category', function ($q) use ($pivot) {
+
+        $q->where('level', '<', $pivot->category->level);
+
+    })
+    ->get();
+
     return view('frontend.home', [
         'interview' => $pivot->interview,
-        'token' => $token
+        'pivot' => $pivot,
+        'token' => $token,
+
+        'previousRounds' => $previousRounds
     ]);
 }
 
 public function submit(Request $request, $token)
 {
-    $pivot = InterviewEmail::with('interview')
-        ->where('token', $token)
-        ->first();
+   $pivot = InterviewEmail::with(['interview', 'category'])
+    ->where('token', $token)
+    ->first();
 
     if (!$pivot) {
         return "Invalid link ❌";
@@ -148,7 +184,7 @@ public function submit(Request $request, $token)
     }
   $request->validate([
 
-    'rating' => 'required|array|size:11',
+    'rating' => 'required|array|size:12',
     'rating.*' => 'required|integer|min:2|max:5',
 
     'comments' => 'required|string',
@@ -156,14 +192,13 @@ public function submit(Request $request, $token)
     'final_recommendation' => 'required',
 
    'present_salary' => 'required|numeric',
-'expected_salary' => 'required|numeric',
-'proposed_gross' => 'required|numeric',
-'proposed_ctc' => 'required|numeric',
+  'expected_salary' => 'required|numeric',
+  'proposed_gross' => 'required|numeric',
+   'proposed_ctc' => 'required|numeric',
 
-    'panel' => 'required|array|size:3',
+    'panel' => 'required|array|size:1',
 
    'panel.1.name' => 'required|string',
-    'panel.1.signature' => 'required|string',
     'panel.1.date' => 'required|date',
     'panel.1.comments' => 'required|string',
 
@@ -183,11 +218,10 @@ public function submit(Request $request, $token)
     'proposed_gross.required' => 'Proposed gross salary is required.',
     'proposed_ctc.required' => 'Proposed CTC salary is required.',
 
-     'panel.1.name.required' => 'Panel member name is required.',
-        'panel.1.signature.required' => 'Signature is required.',
+        'panel.1.name.required' => 'Panel member name is required.',
         'panel.1.date.required' => 'Date is required.',
         'panel.1.comments.required' => 'Panel comments are required.',
-
+    
 ]);
     $attributes = [
         "Job Knowledge",
@@ -247,6 +281,37 @@ public function submit(Request $request, $token)
     $pivot->update([
         'status' => 'completed'
     ]);
+
+    $currentLevel = $pivot->category->level;
+
+$nextInterview = InterviewEmail::with('category')
+    ->where('interview_id', $pivot->interview_id)
+    ->where('status', 'pending')
+    ->whereHas('category', function ($q) use ($currentLevel) {
+
+        $q->where('level', '>', $currentLevel);
+
+    })
+    ->join('categories', 'categories.id', '=', 'interview_emails.category_id')
+    ->orderBy('categories.level', 'asc')
+    ->select('interview_emails.*')
+    ->first();
+
+
+if ($nextInterview) {
+
+    $link = url('/interview/form/' . $nextInterview->token);
+
+    try {
+
+        Mail::to($nextInterview->category->email)
+            ->send(new InterviewMail($link));
+
+    } catch (\Exception $e) {
+
+        dd($e->getMessage());
+    }
+}
 
     return view('frontend.interview.success');
 }

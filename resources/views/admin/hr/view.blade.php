@@ -20,6 +20,7 @@
                         <th class="px-3 py-2">Interview Date</th>
                         <th class="px-3 py-2">Status</th>
                         <th class="px-3 py-2 text-center">Action</th>
+                        <th class="px-3 py-2 text-center">Final Action</th>
 
                     </tr>
                 </thead>
@@ -34,7 +35,7 @@
                             </td>
 
                             <td class="px-4 py-3">
-                                {{ $interview->candidate_name }}
+                              {{ $interview->candidate->full_name ?? '-' }}
                             </td>
 
                             <td class="px-4 py-3">
@@ -87,11 +88,23 @@
                                     @foreach ($interview->emails as $email)
                                         <a href="{{ route('admin.hr.show', $email->id) }}"
                                             class="inline-block px-3 py-1 rounded text-xs font-semibold bg-indigo-50 text-indigo-700 hover:bg-indigo-700 hover:text-white transition-colors duration-150">
-                                            {{ $email->category->name }}
+                                            {{ $email->category->person_name }}
+                                            <span class="text-gray-500">({{ $email->category->designation }})</span>
                                         </a>
                                     @endforeach
                                 </div>
                             </td>
+
+                            <td class="px-4 py-3 text-center">
+
+                        <form method="POST" action="{{ route('admin.hr.final-select', $interview->id) }}">
+                            @csrf
+                            <button class="bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700">
+                                Final Select
+                            </button>
+                        </form>
+
+                    </td>
 
                         </tr>
                     @endforeach
