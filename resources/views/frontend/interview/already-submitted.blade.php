@@ -203,7 +203,7 @@
     <div class="sub-pill">Already Submitted</div>
 
     {{-- Title --}}
-    <h2>Interview Already<br>Submitted!</h2>
+    <h2>Form Already<br>Submitted!</h2>
 
     {{-- Description --}}
     <p>

@@ -1,5 +1,12 @@
 <div class="max-w-[900px] mx-auto px-4 py-10">
 
+   <div class="mb-6 hidden md:block">
+    <button onclick="window.history.back()"
+        class="px-4 py-2 bg-[#0b2c5f] text-white rounded-lg hover:bg-[#08304a] transition">
+        ← Back
+    </button>
+</div>
+
     <!-- Heading -->
     <h2 class="text-[30px] sm:text-[36px]
         font-bold text-center text-[#0b2c5f] mb-12">

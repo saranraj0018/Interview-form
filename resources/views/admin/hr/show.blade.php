@@ -469,7 +469,7 @@
             <div class="irv-stats">
                 <div class="irv-stat">
                     <div class="s-label">Candidate</div>
-                    <div class="s-value">{{ $pivot->interview->candidate_name }}</div>
+                    <div class="s-value">{{ $pivot->interview->candidate->full_name ?? '-' }}</div>
                 </div>
                 <div class="irv-stat">
                     <div class="s-label">Position</div>
@@ -495,10 +495,10 @@
                     <div class="irv-section-title">Interviewer</div>
                     <div class="irv-interviewer">
                         <div class="irv-avatar">
-                            {{ strtoupper(substr($pivot->category->name, 0, 2)) }}
+                            {{ strtoupper(substr($pivot->category->person_name, 0, 2)) }}
                         </div>
                         <div>
-                            <div class="i-name">{{ $pivot->category->name }}</div>
+                            <div class="i-name">{{ $pivot->category->person_name }}</div>
                             <div class="i-role">Interviewer</div>
                         </div>
                         <div class="i-badge">

@@ -1,16 +1,17 @@
-<div id="interviewModal"
-     x-data="{ open:false, form: {
+<div id="interviewModal" x-data="{
+    open: false,
+    candidate_experience: '',
+    form: {
         id: 0,
         position: '',
         department: '',
-        candidate_name: '',
+        candidate_id: '',
         interview_date: '',
         institution: '',
         categories: []
-     }}"
-     x-show="open"
-     class="fixed inset-0 flex items-center justify-center z-50"
-     style="display:none">
+    }
+}" x-show="open" class="fixed inset-0 flex items-center justify-center z-50"
+    style="display:none">
 
     <!-- Backdrop -->
     <div class="absolute inset-0 bg-black/40" @click="open=false"></div>
@@ -29,70 +30,100 @@
             <!-- Position -->
             <div>
                 <label class="block mb-1">Position</label>
-                <input type="text" name="position" x-model="form.position"
-                       class="w-full border p-2 rounded">
+                <input type="text" name="position" x-model="form.position" class="form-input w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#ea2498]">
             </div>
 
             <!-- Department -->
             <div>
                 <label class="block mb-1">Department</label>
-                <input type="text" name="department" x-model="form.department"
-                       class="w-full border p-2 rounded">
+                <input type="text" name="department" x-model="form.department" class="form-input w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#ea2498]">
             </div>
 
             <!-- Candidate -->
             <div>
-                <label class="block mb-1">Candidate Name</label>
-                <input type="text" name="candidate_name" x-model="form.candidate_name"
-                       class="w-full border p-2 rounded">
+                <label class="block mb-1">
+                    Candidate
+                </label>
+
+                <select name="candidate_id" x-model="form.candidate_id"
+                    @change="candidate_experience = $event.target.selectedOptions[0].dataset.experience"
+                    class="form-input w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#ea2498]">
+
+                    <option value="">
+                        Select Candidate
+                    </option>
+
+                    @foreach ($candidates as $candidate)
+                        <option value="{{ $candidate->id }}"
+                            data-experience="{{ ($candidate->experience == 0 || !$candidate->experience) ? 'Fresher' : $candidate->experience }}">
+
+                            {{ $candidate->full_name }}
+                            -
+                            {{ $candidate->mobile }}
+
+                        </option>
+                    @endforeach
+
+                </select>
+            </div>
+
+            <div>
+                <label class="block mb-1">
+                    Experience
+                </label>
+
+                <input type="text" id="candidate_experience" class="form-input w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#ea2498]" readonly>
             </div>
 
             <!-- Interview Date -->
             <div>
                 <label class="block mb-1">Interview Date</label>
                 <input type="date" name="interview_date" x-model="form.interview_date"
-                       class="w-full border p-2 rounded">
+                    class="form-input w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#ea2498]">
             </div>
 
             <!-- Institution -->
             <div>
                 <label class="block mb-1">Institution</label>
-                <input type="text" name="institution" x-model="form.institution"
-                       class="w-full border p-2 rounded">
+                <input type="text" name="institution" x-model="form.institution" class="form-input w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#ea2498]">
             </div>
 
-          <div>
-    <label class="block mb-2 font-medium text-gray-700">Interview BY</label>
+            <div>
+                <label class="block mb-2 font-medium text-gray-700">Interview BY</label>
 
-    <div class="border rounded-lg p-3 max-h-48 overflow-y-auto bg-white shadow-sm space-y-2">
+                <div class="border rounded-lg p-3 max-h-48 overflow-y-auto bg-white shadow-sm space-y-2">
 
-        @foreach($categories as $cat)
-            <label class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 cursor-pointer">
+                    @foreach ($categories as $cat)
+                        <label class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 cursor-pointer">
 
-                <input type="checkbox"
-                       value="{{ $cat->id }}"
-                       x-model="form.categories"
-                       class="w-4 h-4 text-blue-600 border-gray-300 rounded">
+                            <input type="checkbox" value="{{ $cat->id }}" x-model="form.categories"
+                                class="w-4 h-4 text-blue-600 border-gray-300 rounded">
 
-                <span class="text-gray-700 text-sm">
-                    {{ $cat->name }}
-                </span>
+                            <span class="text-gray-700 text-sm">
 
-            </label>
-        @endforeach
+                                {{ $cat->person_name }}
+                                -
+                                {{ $cat->email }}
 
-    </div>
-</div>
+                                <span class="text-pink-600 font-semibold">
+                                    (Level {{ $cat->level }})
+                                </span>
+
+                            </span>
+
+                        </label>
+                    @endforeach
+
+                </div>
+            </div>
 
             <!-- Buttons -->
             <div class="flex justify-end gap-3 pt-4">
-                <button type="button" @click="open=false"
-                        class="px-4 py-2 border rounded">
+                <button type="button" @click="open=false" class="px-4 py-2 border rounded">
                     Cancel
                 </button>
 
-                <button type="submit"
-                        class="bg-[#ea2498] text-white px-4 py-2 rounded">
+                <button type="submit" class="bg-[#ea2498] text-white px-4 py-2 rounded">
                     Save
                 </button>
             </div>
@@ -102,11 +133,8 @@
 </div>
 
 
-<div id="deleteInterviewModal"
-     x-data="{ open: false, deleteId: null }"
-     x-show="open"
-     class="fixed inset-0 flex items-center justify-center z-50"
-     style="display:none">
+<div id="deleteInterviewModal" x-data="{ open: false, deleteId: null }" x-show="open"
+    class="fixed inset-0 flex items-center justify-center z-50" style="display:none">
 
     <div class="absolute inset-0 bg-black/40" @click="open=false"></div>
 
@@ -116,13 +144,36 @@
         <p class="mb-6">Are you sure you want to delete this interview?</p>
 
         <div class="flex justify-end gap-3">
-            <button @click="open=false"
-                class="px-4 py-1 border rounded">Cancel</button>
+            <button @click="open=false" class="px-4 py-1 border rounded">Cancel</button>
 
-            <button @click="deleteInterview(deleteId)"
-                class="px-4 py-1 bg-red-600 text-white rounded">
+            <button @click="deleteInterview(deleteId)" class="px-4 py-1 bg-red-600 text-white rounded">
                 Delete
             </button>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        const candidateSelect = document.querySelector(
+            'select[name="candidate_id"]'
+        );
+
+        const experienceInput = document.getElementById(
+            'candidate_experience'
+        );
+
+        candidateSelect.addEventListener("change", function() {
+
+            const selectedOption =
+                this.options[this.selectedIndex];
+
+            const experience =
+                selectedOption.getAttribute("data-experience");
+
+            experienceInput.value = experience || '';
+        });
+
+    });
+</script>

@@ -1,7 +1,19 @@
 <div class="min-h-screen bg-gradient-to-b from-[#f8fbff] to-[#eef3f8] py-12">
 
     <div class="max-w-[1180px] mx-auto px-4">
+<div class="mb-6 hidden md:block">
+    <button onclick="window.history.back()"
+        class="flex items-center gap-2 px-4 py-2 bg-[#0b2c5f] text-white rounded-xl hover:bg-[#08304a] transition">
 
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 19l-7-7 7-7" />
+        </svg>
+
+        Back
+    </button>
+</div>
         <!-- HERO CARD -->
         <div class="relative overflow-hidden
             bg-white rounded-[32px]
@@ -113,17 +125,17 @@
                 <div class="flex flex-col items-start lg:items-end gap-4">
 
                     <!-- BUTTON -->
-                    <a href="{{ url('/personal-data') }}" class="inline-block bg-gradient-to-r
-    from-[#0b2c5f]
-    to-[#123d7d]
-    hover:scale-[1.03]
-    text-white
-    text-[15px]
-    font-semibold
-    px-7 py-3.5
-    rounded-2xl
-    shadow-lg
-    transition-all duration-300">
+                  <a href="{{ route('personal.data', $job->id) }}" class="inline-block bg-gradient-to-r
+                        from-[#0b2c5f]
+                        to-[#123d7d]
+                        hover:scale-[1.03]
+                        text-white
+                        text-[15px]
+                        font-semibold
+                        px-7 py-3.5
+                        rounded-2xl
+                        shadow-lg
+                        transition-all duration-300">
 
                         Apply Now
 

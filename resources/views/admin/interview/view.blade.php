@@ -28,7 +28,7 @@
                             <td class="px-4 py-3">{{ $interview->id }}</td>
 
                             <td class="px-4 py-3">
-                                {{ $interview->candidate_name }}
+                                {{ $interview->candidate->full_name ?? '-' }}
                             </td>
 
                             <td class="px-4 py-3">
@@ -58,7 +58,13 @@
 
                                             <i class="fa-solid fa-user mr-1 text-[10px]"></i>
 
-                                            {{ $cat->name }}
+                                            {{ $cat->person_name }}
+                                    -
+                                    {{ $cat->email }}
+
+                                    <span class="ml-1 text-pink-600 font-semibold">
+                                        (L{{ $cat->level }})
+                                    </span>
 
                                         </span>
                                     @endforeach
