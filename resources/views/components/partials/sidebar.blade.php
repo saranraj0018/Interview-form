@@ -19,6 +19,7 @@
         <x-menu.item route="view.category" name="Email" icon="fa-list" />
         <x-menu.item route="view.interview" name="Interviews" icon="fa-briefcase" />
         <x-menu.item route="admin.hr.view" name="HR Reviews" icon="fa-users" />
+         <x-menu.item route="admin.employee.index" name="Employees" icon="fa-users" />
 
     </ul>
 </aside>

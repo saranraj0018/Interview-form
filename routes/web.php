@@ -31,13 +31,12 @@ Route::post('/personal-data/save', [CandidateController::class, 'savePersonalDat
 Route::get('/personal-data/{job_post_id}', [CandidateController::class, 'create'])
     ->name('personal.data');
 
-   //Final Select route 
+   //Final Select route
    Route::post('/hr/final-select/{id}', [HRController::class, 'finalSelect'])
     ->name('admin.hr.final-select');
 
-Route::get('/new-joinee', function () {
-    return view('frontend.newjoinee');
-});
+Route::get('/new-joinee/{token}', [HRController::class, 'showForm']);
+Route::post('/employee-save', [HRController::class, 'employeeSave']);
 
 Route::get('/successful', function () {
     return view('frontend.successfulimage');
@@ -78,6 +77,7 @@ Route::prefix('admin')->group(function () {
           Route::prefix('hr')->controller(HRInterviewController::class)->group(function () {
             Route::get('/list', 'view')->name('admin.hr.view');
             Route::get('/show/{id}', 'show')->name('admin.hr.show');
+            Route::get('/ratings-view/{id}', 'ratingsView')->name('admin.hr.ratings-view');
         });
 
         // job
@@ -93,6 +93,12 @@ Route::prefix('admin')->group(function () {
             Route::post('/save', 'save')->name('admin.company.save');
             Route::post('/delete', 'destroy')->name('admin.company.delete');
         });
+
+            //employee
+            Route::prefix('employee')->controller(App\Http\Controllers\HRController::class)->group(function () {
+                Route::get('/list', 'index')->name('admin.employee.index');
+                Route::get('/show/{id}', 'show')->name('admin.employee.show');
+            });
 
         //candidate details
         Route::get('/candidates', [AdminCandidateController::class, 'view'])->name('admin.candidates.index');

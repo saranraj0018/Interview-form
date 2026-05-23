@@ -473,7 +473,7 @@
                 </div>
                 <div class="irv-stat">
                     <div class="s-label">Position</div>
-                    <div class="s-value">{{ $pivot->interview->position }}</div>
+                    <div class="s-value">{{ $pivot->interview->candidate->position_applied ?? '-' }}</div>
                 </div>
                 <div class="irv-stat">
                     <div class="s-label">Department</div>
@@ -546,7 +546,7 @@
                             <span>Assessment Scores</span>
 
                             <span style="font-size:.75rem;">
-                                Overall : {{ $overallTotal }}/55
+                                Overall : {{ $overallTotal }}/60
                             </span>
 
                         </div>
@@ -595,7 +595,7 @@
                 font-family:'Syne',sans-serif;
             ">
 
-                                {{ $overallTotal }} / 55
+                                {{ $overallTotal }} / 60
 
                             </span>
 
@@ -642,7 +642,6 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Comments</th>
-                                    <th>Signature</th>
                                     <th>Date</th>
                                 </tr>
                             </thead>
@@ -651,7 +650,6 @@
                                     <tr>
                                         <td>{{ $panel->name }}</td>
                                         <td>{{ $panel->comments }}</td>
-                                        <td>{{ $panel->signature }}</td>
                                         <td>{{ $panel->date }}</td>
                                     </tr>
                                 @empty

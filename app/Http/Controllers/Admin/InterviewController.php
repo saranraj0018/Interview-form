@@ -26,9 +26,10 @@ class InterviewController extends Controller {
     public function save(Request $request) {
 
         $validator = Validator::make($request->all(), [
-            'position' => 'required',
             'department' => 'required',
             'candidate_id' => 'required',
+            'proposed_gross_salary' => 'nullable',
+            'proposed_ctc_salary' => 'nullable',
             'interview_date' => 'required|date',
             'institution' => 'required',
             'categories' => 'required|array'
@@ -49,53 +50,76 @@ class InterviewController extends Controller {
             $message = 'Interview saved successfully';
         }
 
-        $interview->position = $request->position;
         $interview->department = $request->department;
         $interview->candidate_id = $request->candidate_id;
+        $interview->proposed_gross_salary = $request->proposed_gross_salary;
+        $interview->proposed_ctc_salary = $request->proposed_ctc_salary;
         $interview->interview_date = $request->interview_date;
         $interview->institution = $request->institution;
-
         $interview->save();
 
-        $syncData = [];
+      $syncData = [];
 
-        $selectedCategories = Category::whereIn('id', $request->categories)
+$selectedCategories = Category::whereIn('id', $request->categories)
     ->orderBy('level')
     ->get();
 
-$firstLevel = $selectedCategories->first();
+$oldCategoryIds = [];
+
+if ($interview->id) {
+
+    $oldCategoryIds = $interview->categories()
+        ->pluck('categories.id')
+        ->toArray();
+}
+
+$newCategoryIds = array_diff($request->categories, $oldCategoryIds);
 
 foreach ($selectedCategories as $cat) {
 
-    $token = Str::random(40);
+    $existingPivot = InterviewEmail::where('interview_id', $interview->id)
+        ->where('category_id', $cat->id)
+        ->first();
+
+    $token = $existingPivot->token ?? Str::random(40);
 
     $syncData[$cat->id] = [
         'token' => $token,
-        'status' => 'pending'
+        'status' => $existingPivot->status ?? 'pending'
     ];
 }
 
 $interview->categories()->sync($syncData);
 
+/*
+|--------------------------------------------------------------------------
+| SEND MAIL ONLY TO FIRST LEVEL
+|--------------------------------------------------------------------------
+*/
+
+$firstLevel = $selectedCategories->first();
+
 if ($firstLevel) {
 
-   $pivot = InterviewEmail::where('interview_id', $interview->id)
-    ->where('category_id', $firstLevel->id)
-    ->first();
+    $pivot = InterviewEmail::where('interview_id', $interview->id)
+        ->where('category_id', $firstLevel->id)
+        ->first();
 
-if ($pivot) {
+    if ($pivot && $pivot->status == 'pending') {
 
-   $token = $pivot->token;
+        $link = url('/interview/form/' . $pivot->token);
 
-    $link = url('/interview/form/' . $token);
-          try {
-           Mail::to($firstLevel->email)
-        ->send(new InterviewMail($link));
-          } catch (\Exception $e) {
-                dd($e->getMessage());
-         }
-         }
-   }
+        try {
+
+            Mail::to($firstLevel->email)
+                ->send(new InterviewMail($link));
+
+        } catch (\Exception $e) {
+
+            dd($e->getMessage());
+        }
+    }
+}
 
         return response()->json([
             'success' => true,
@@ -221,7 +245,7 @@ public function submit(Request $request, $token)
         'panel.1.name.required' => 'Panel member name is required.',
         'panel.1.date.required' => 'Date is required.',
         'panel.1.comments.required' => 'Panel comments are required.',
-    
+
 ]);
     $attributes = [
         "Job Knowledge",
@@ -235,6 +259,7 @@ public function submit(Request $request, $token)
         "Appearance",
         "Presentation",
         "Computer Skills",
+        "AI skills"
     ];
 
     foreach ($request->rating as $key => $value) {

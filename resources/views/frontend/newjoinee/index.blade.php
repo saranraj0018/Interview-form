@@ -1,3 +1,7 @@
+<form action="{{ url('/employee-save') }}" method="POST" enctype="multipart/form-data">
+
+    @csrf
+    <input type="hidden" name="token" value="{{ $interview->joining_token }}">
 <div id="step1" class="min-h-screen bg-gradient-to-br from-[#f4f7fb] to-[#eef3f9] py-10 px-4">
 
     <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-[32px] overflow-hidden border border-gray-200">
@@ -41,55 +45,55 @@
 
                     <div>
                         <label class="text-sm font-semibold text-gray-700">Employee Name</label>
-                        <input type="text" placeholder="Enter employee name"
+                        <input type="text" name="name" placeholder="Enter employee name"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition">
                     </div>
 
                     <div>
                         <label class="text-sm font-semibold text-gray-700">Designation</label>
-                        <input type="text" placeholder="Enter designation"
+                        <input type="text" name="designation" placeholder="Enter designation"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition">
                     </div>
 
                     <div>
                         <label class="text-sm font-semibold text-gray-700">Date of Joining</label>
-                        <input type="date"
+                        <input type="date" name="doj"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition">
                     </div>
 
                     <div>
                         <label class="text-sm font-semibold text-gray-700">Date of Birth</label>
-                        <input type="date"
+                        <input type="date" name="dob"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition">
                     </div>
 
                     <div>
                         <label class="text-sm font-semibold text-gray-700">Contact Number</label>
-                        <input type="number" placeholder="Enter contact number"
+                        <input type="number" name="contact" placeholder="Enter contact number"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition">
                     </div>
 
                     <div>
                         <label class="text-sm font-semibold text-gray-700">Emergency Contact Number</label>
-                        <input type="number" placeholder="Enter emergency contact"
+                        <input type="number" name="emergency_contact" placeholder="Enter emergency contact"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition">
                     </div>
 
                     <div>
                         <label class="text-sm font-semibold text-gray-700">Father's Name & DOB</label>
-                        <input type="text" placeholder="Enter details"
+                        <input type="text" name="father" placeholder="Enter details"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition">
                     </div>
 
                     <div>
                         <label class="text-sm font-semibold text-gray-700">Mother's Name & DOB</label>
-                        <input type="text" placeholder="Enter details"
+                        <input type="text" name="mother" placeholder="Enter details"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition">
                     </div>
 
                     <div>
                         <label class="text-sm font-semibold text-gray-700">Spouse Name & DOB</label>
-                        <input type="text" placeholder="Enter details"
+                        <input type="text" name="spouse" placeholder="Enter details"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition">
                     </div>
 
@@ -99,11 +103,11 @@
                         <div class="flex gap-6 mt-4">
 
                             <label class="flex items-center gap-2 text-gray-700">
-                                <input type="radio" name="marital"> Married
+                                <input type="radio" name="marital_status" value="married"> Married
                             </label>
 
                             <label class="flex items-center gap-2 text-gray-700">
-                                <input type="radio" name="marital"> Unmarried
+                                <input type="radio" name="marital_status" value="unmarried"> Unmarried
                             </label>
 
                         </div>
@@ -115,11 +119,11 @@
                         <div class="flex gap-6 mt-4">
 
                             <label class="flex items-center gap-2 text-gray-700">
-                                <input type="radio" name="gender"> Male
+                                <input type="radio" name="gender" value="male"> Male
                             </label>
 
                             <label class="flex items-center gap-2 text-gray-700">
-                                <input type="radio" name="gender"> Female
+                                <input type="radio" name="gender" value="female"> Female
                             </label>
 
                         </div>
@@ -128,44 +132,44 @@
                     <div>
                         <label class="text-sm font-semibold text-gray-700">Aadhaar Number</label>
 
-                        <input type="text" id="aadhaar" maxlength="14" placeholder="XXXX XXXX XXXX" inputmode="numeric"
+                        <input type="text" name="aadhaar" id="aadhaar" maxlength="14" placeholder="XXXX XXXX XXXX" inputmode="numeric"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition">
                     </div>
 
                     <div>
                         <label class="text-sm font-semibold text-gray-700">PAN Number</label>
-                        <input type="text" placeholder="ABCDE1234F"
+                        <input type="text" name="pan" placeholder="ABCDE1234F"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition">
                     </div>
 
                     <div class="md:col-span-2">
                         <label class="text-sm font-semibold text-gray-700">Driving License Number & Valid
                             Through</label>
-                        <input type="text" placeholder="Enter Driving License Number"
+                        <input type="text" name="driving_license" placeholder="Enter Driving License Number"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition">
                     </div>
 
                     <div class="md:col-span-2">
                         <label class="text-sm font-semibold text-gray-700">Present Address</label>
-                        <textarea rows="2" placeholder="Enter full address"
+                        <textarea rows="2" name="present_address" placeholder="Enter full address"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition"></textarea>
                     </div>
 
                     <div class="md:col-span-2">
                         <label class="text-sm font-semibold text-gray-700">Permanent Address</label>
-                        <textarea rows="2" placeholder="Enter full address"
+                        <textarea rows="2" name="permanent_address" placeholder="Enter full address"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition"></textarea>
                     </div>
 
                     <div>
                         <label class="text-sm font-semibold text-gray-700">Blood Group</label>
-                        <input type="text" placeholder="Enter Blood Group"
+                        <input type="text" name="blood_group" placeholder="Enter Blood Group"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition">
                     </div>
 
                     <div>
                         <label class="text-sm font-semibold text-gray-700">Nominee & Relationship</label>
-                        <input type="text" placeholder="Enter The Nominee"
+                        <input type="text" name="nominee" placeholder="Enter The Nominee"
                             class="w-full mt-2 border border-gray-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#174a96] outline-none transition">
                     </div>
 
@@ -182,19 +186,19 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                    <input type="text" placeholder="Bank Account Number"
+                    <input type="text" name="bank_account" placeholder="Bank Account Number"
                         class="w-full border border-gray-300 rounded-2xl px-5 py-3">
 
-                    <input type="text" placeholder="Bank Name"
+                    <input type="text" name="bank_name" placeholder="Bank Name"
                         class="w-full border border-gray-300 rounded-2xl px-5 py-3">
 
-                    <input type="text" placeholder="Branch Name"
+                    <input type="text" name="branch" placeholder="Branch Name"
                         class="w-full border border-gray-300 rounded-2xl px-5 py-3">
 
-                    <input type="text" placeholder="IFSC Code"
+                    <input type="text" name="ifsc" placeholder="IFSC Code"
                         class="w-full border border-gray-300 rounded-2xl px-5 py-3">
 
-                    <textarea rows="3" placeholder="Bank Address"
+                    <textarea rows="3" name="bank_address" placeholder="Bank Address"
                         class="md:col-span-2 w-full border border-gray-300 rounded-2xl px-5 py-3"></textarea>
 
                 </div>
@@ -251,10 +255,10 @@
 
                                 <td class="px-4 py-3 text-center">
                                     <label class="mr-3">
-                                        <input type="radio" name="family[reside_0]" value="Yes"> Yes
+                                        <input type="radio" name="family[residing_with][0]" value="Yes"> Yes
                                     </label>
                                     <label>
-                                        <input type="radio" name="family[reside_0]" value="No"> No
+                                        <input type="radio" name="family[residing_with][0]" value="No"> No
                                     </label>
                                 </td>
 
@@ -283,7 +287,7 @@
             <!-- BUTTON -->
             <div class="text-end py-6 pr-6">
 
-                <button id="nextBtn" class="bg-gradient-to-r from-[#0b2c5f] to-[#174a96]
+                <button type="button" id="nextBtn" class="bg-gradient-to-r from-[#0b2c5f] to-[#174a96]
                     hover:scale-[1.02]
                     text-white px-10 py-4 rounded-2xl
                     text-lg font-semibold shadow-xl transition-all duration-300">
@@ -335,7 +339,7 @@
                                     Employee Name
                                 </label>
 
-                                <input type="text" placeholder="Enter employee name"
+                                <input type="text" id="preview_name" readonly placeholder="Enter employee name"
                                     class="w-full h-12 border border-gray-300 rounded-xl px-4 text-sm outline-none transition focus:ring-2 focus:ring-[#174a96]">
                             </div>
 
@@ -345,7 +349,7 @@
                                     Designation
                                 </label>
 
-                                <input type="text" placeholder="Enter designation"
+                                <input type="text" id="preview_designation" readonly placeholder="Enter designation"
                                     class="w-full h-12 border border-gray-300 rounded-xl px-4 text-sm outline-none transition focus:ring-2 focus:ring-[#174a96]">
                             </div>
 
@@ -355,7 +359,7 @@
                                     Department
                                 </label>
 
-                                <input type="text" placeholder="Enter department"
+                                <input type="text" name="department" placeholder="Enter department"
                                     class="w-full h-12 border border-gray-300 rounded-xl px-4 text-sm outline-none transition focus:ring-2 focus:ring-[#174a96]">
                             </div>
 
@@ -365,7 +369,7 @@
                                     Date of Joining
                                 </label>
 
-                                <input type="date"
+                                <input type="date" id="preview_doj" readonly
                                     class="w-full h-12 border border-gray-300 rounded-xl px-4 text-sm outline-none transition focus:ring-2 focus:ring-[#174a96]">
                             </div>
 
@@ -375,7 +379,7 @@
                                     Employee Code
                                 </label>
 
-                                <input type="text" placeholder="Enter employee code"
+                                <input type="text" name="employee_code" placeholder="Enter employee code"
                                     class="w-full h-12 border border-gray-300 rounded-xl px-4 text-sm outline-none transition focus:ring-2 focus:ring-[#174a96]">
                             </div>
 
@@ -385,7 +389,7 @@
                                     Date of Birth
                                 </label>
 
-                                <input type="date"
+                                <input type="date" id="preview_dob" readonly
                                     class="w-full h-12 border border-gray-300 rounded-xl px-4 text-sm outline-none transition focus:ring-2 focus:ring-[#174a96]">
                             </div>
 
@@ -398,15 +402,23 @@
 
                         <div class="text-center mb-6 md:mb-0">
 
-                            <label
-                                class="w-full max-w-[220px] h-56 mx-auto cursor-pointer border-2 border-dashed border-gray-400 rounded-2xl bg-gray-50 flex items-center justify-center hover:bg-gray-100 transition px-4">
+                            <!-- Upload Box -->
+                            <label for="photoUpload"
+                                class="w-[170px] h-52 mx-auto cursor-pointer border-2 border-dashed border-gray-400 rounded-2xl bg-gray-50 flex items-center justify-center hover:bg-gray-100 transition overflow-hidden relative block">
 
-                                <span class="text-gray-400 text-sm text-center leading-6">
+                                <!-- Preview Image -->
+                                <img id="previewImage" class="hidden w-full h-full object-fill rounded-2xl" />
+
+                                <!-- Placeholder -->
+                                <div id="uploadText" class="text-gray-400 text-sm text-center leading-6">
                                     Upload <br> Passport Size Photo
-                                </span>
+                                </div>
 
-                                <input type="file" accept="image/*" class="hidden">
                             </label>
+
+                            <!-- Hidden Input -->
+                            <input type="file"  name="photo" id="photoUpload" accept="image/*" class="hidden"
+                                onchange="showPreview(event)" />
 
                             <p class="text-xs text-gray-500 mt-3">
                                 JPG, PNG accepted
@@ -429,7 +441,7 @@
                             Employee Address
                         </label>
 
-                        <textarea rows="3" placeholder="Enter full address"
+                        <textarea rows="3" id="preview_present_address" readonly
                             class="w-full border border-gray-300 rounded-xl px-4 py-3 resize-none outline-none transition focus:ring-2 focus:ring-[#174a96]"></textarea>
                     </div>
 
@@ -450,7 +462,7 @@
                                 Blood Group
                             </label>
 
-                            <input type="text" placeholder="Enter blood group"
+                            <input type="text" id="preview_blood_group" readonly placeholder="Enter blood group"
                                 class="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none transition focus:ring-2 focus:ring-[#174a96]">
                         </div>
 
@@ -460,7 +472,7 @@
                                 Contact Number
                             </label>
 
-                            <input type="number" placeholder="Enter contact number"
+                            <input type="number" id="preview_contact" readonly placeholder="Enter contact number"
                                 class="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none transition focus:ring-2 focus:ring-[#174a96]">
                         </div>
 
@@ -518,7 +530,7 @@
                         Employee Signature
                     </label>
 
-                    <input type="text" placeholder="Enter Your Signature"
+                    <input type="text" name="signature" placeholder="Enter Your Signature"
                         class="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none transition focus:ring-2 focus:ring-[#174a96]">
                 </div>
 
@@ -531,12 +543,12 @@
 
                     <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
 
-                        <button id="backBtn"
+                        <button type="button" id="backBtn"
                             class="w-full sm:w-auto bg-gradient-to-r from-[#0b2c5f] to-[#174a96] text-white px-8 py-3 rounded-xl shadow-lg hover:scale-105 transition duration-300">
                             Preview
                         </button>
 
-                        <button
+                        <button type="submit"
                             class="w-full sm:w-auto bg-gradient-to-r from-[#0b2c5f] to-[#174a96] text-white px-8 py-3 rounded-xl shadow-lg hover:scale-105 transition duration-300">
                             Submit Application
                         </button>
@@ -551,6 +563,8 @@
 
     </div>
 </div>
+
+</form>
 
 
 <!-- SCRIPT -->
@@ -568,6 +582,27 @@ const step2 = document.getElementById("step2");
 
 // NEXT
 nextBtn.addEventListener("click", () => {
+
+ document.getElementById('preview_name').value =
+        document.querySelector('input[name="name"]').value;
+
+    document.getElementById('preview_designation').value =
+        document.querySelector('input[name="designation"]').value;
+
+    document.getElementById('preview_doj').value =
+        document.querySelector('input[name="doj"]').value;
+
+    document.getElementById('preview_dob').value =
+        document.querySelector('input[name="dob"]').value;
+
+    document.getElementById('preview_blood_group').value =
+        document.querySelector('input[name="blood_group"]').value;
+
+    document.getElementById('preview_present_address').value =
+        document.querySelector('textarea[name="present_address"]').value;
+
+    document.getElementById('preview_contact').value =
+        document.querySelector('input[name="contact"]').value;
 
     // hide first
     step1.classList.add("opacity-0", "-translate-y-10");
@@ -648,10 +683,10 @@ addFamilyRow.addEventListener('click', () => {
 
         <td class="px-4 py-3 text-center">
             <label class="mr-3">
-                <input type="radio" name="family[reside_${familyIndex}]" value="Yes"> Yes
+                <input type="radio" name="family[residing_with][${familyIndex}]" value="Yes"> Yes
             </label>
             <label>
-                <input type="radio" name="family[reside_${familyIndex}]" value="No"> No
+                <input type="radio" name="family[residing_with][${familyIndex}]" value="No"> No
             </label>
         </td>
 
@@ -673,6 +708,20 @@ addFamilyRow.addEventListener('click', () => {
 
     updateSerialNumbers();
 });
+
+function showPreview(event) {
+    const file = event.target.files[0];
+
+    if (file) {
+        const image = document.getElementById("previewImage");
+        const text = document.getElementById("uploadText");
+
+        image.src = URL.createObjectURL(file);
+
+        image.classList.remove("hidden");
+        text.classList.add("hidden");
+    }
+}
 
 // REMOVE ROW (event delegation)
 familyBody.addEventListener('click', function(e) {

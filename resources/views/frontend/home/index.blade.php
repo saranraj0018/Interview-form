@@ -31,7 +31,9 @@
          <div>
             <p class="text-gray-500">Experience</p>
             <p class="font-semibold text-gray-800">
-                {{ $interview->candidate->experience ?? 'Fresher' }}
+               {{ ($interview->candidate->experience == 0 || !$interview->candidate->experience)
+        ? 'Fresher'
+        : $interview->candidate->experience . ' Years' }}
             </p>
         </div>
 
@@ -42,7 +44,7 @@
 
                 <div>
                     <p class="text-gray-500">Position</p>
-                    <p class="font-semibold text-gray-800">{{ $interview->position }}</p>
+                    <p class="font-semibold text-gray-800">{{ $interview->candidate->position_applied  ?? '-' }}</p>
                 </div>
 
                 <div>
@@ -295,26 +297,26 @@
 
                     <div>
                         <label class="text-sm text-gray-600">Present Salary</label>
-                        <input type="number" name="present_salary" min="0" step="any" class="w-full mt-1 border border-gray-300 rounded-lg p-2
+                        <input type="number" name="present_salary" value="{{ $interview->candidate->current_gross ?? '' }}" min="0" step="any" class="w-full mt-1 border border-gray-300 rounded-lg p-2
     focus:ring-2 focus:ring-blue-400 outline-none">
                     </div>
 
                     <div>
                         <label class="text-sm text-gray-600">Expected Salary</label>
-                        <input type="number" name="expected_salary" min="0" step="any" class="w-full mt-1 border border-gray-300 rounded-lg p-2
+                        <input type="number" name="expected_salary" value="{{ $interview->candidate->expected_gross ?? '' }}" min="0" step="any" class="w-full mt-1 border border-gray-300 rounded-lg p-2
     focus:ring-2 focus:ring-blue-400 outline-none">
 
                     </div>
 
                     <div>
                         <label class="text-sm text-gray-600">Proposed Gross Salary</label>
-                        <input type="number" name="proposed_gross" min="0" step="any" class="w-full mt-1 border border-gray-300 rounded-lg p-2
+                        <input type="number" name="proposed_gross" value="{{ $interview->proposed_gross_salary ?? '' }}" min="0" step="any" class="w-full mt-1 border border-gray-300 rounded-lg p-2
     focus:ring-2 focus:ring-blue-400 outline-none">
                     </div>
 
                     <div>
                         <label class="text-sm text-gray-600">Proposed CTC Salary</label>
-                        <input type="number" name="proposed_ctc" min="0" step="any" class="w-full mt-1 border border-gray-300 rounded-lg p-2
+                        <input type="number" name="proposed_ctc" value="{{ $interview->proposed_ctc_salary ?? '' }}" min="0" step="any" class="w-full mt-1 border border-gray-300 rounded-lg p-2
     focus:ring-2 focus:ring-blue-400 outline-none">
                     </div>
 
@@ -336,8 +338,6 @@
                             <th class="p-2">Comments</th>
                         </tr>
                     </thead>
-
-                    <!-- ✅ FIRST ROW ONLY REQUIRED -->
 
                    <tbody>
 
@@ -404,6 +404,8 @@
         <td class="p-2">
             <input type="text"
                    name="panel[1][name]"
+                   value="{{ $pivot->category->person_name ?? '' }}"
+                   readonly
                    class="w-full border border-gray-300 rounded-lg p-2 outline-none">
         </td>
 
@@ -411,6 +413,8 @@
         <td class="p-2">
             <input type="date"
                    name="panel[1][date]"
+                    value="{{ date('Y-m-d') }}"
+                 readonly
                    class="w-full border border-gray-300 rounded-lg p-2 outline-none">
         </td>
 
@@ -418,6 +422,7 @@
         <td class="p-2">
             <input type="text"
                    name="panel[1][comments]"
+                   readonly
                    class="w-full border border-gray-300 rounded-lg p-2 outline-none">
         </td>
 

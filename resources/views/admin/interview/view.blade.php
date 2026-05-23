@@ -32,7 +32,7 @@
                             </td>
 
                             <td class="px-4 py-3">
-                                {{ $interview->position }}
+                                {{ $interview->candidate->position_applied ?? '-' }}
                             </td>
 
                             <td class="px-4 py-3">
@@ -43,7 +43,7 @@
                                 {{ \Carbon\Carbon::parse($interview->interview_date)->format('d M Y') }}
                             </td>
 
-                            <!-- 🔥 Interview By -->
+                            <!-- Interview By -->
                             <td class="px-4 py-3">
 
                                 <div class="flex flex-wrap gap-2 max-w-[250px]">
@@ -76,17 +76,19 @@
                             <td class="px-4 py-3 flex justify-center gap-4">
 
                                 <!-- Edit -->
-                                {{-- <button
+                                <button
                                 class="text-blue-600 hover:text-blue-800 editInterviewBtn"
                                 data-id="{{ $interview->id }}"
                                 data-position="{{ $interview->position }}"
                                 data-department="{{ $interview->department }}"
-                                data-candidate="{{ $interview->candidate_name }}"
+                                data-candidate="{{ $interview->candidate_id}}"
                                 data-date="{{ $interview->interview_date }}"
                                 data-institution="{{ $interview->institution }}"
+                                data-proposed_gross_salary="{{ $interview->proposed_gross_salary }}"
+                                data-proposed_ctc_salary="{{ $interview->proposed_ctc_salary }}"
                                 data-categories='@json($interview->categories->pluck("id"))'>
                                 <i class="fa-solid fa-pen-to-square"></i>
-                            </button> --}}
+                            </button>
 
                                 <!-- Delete -->
                                 <button class="text-red-600 hover:text-red-800 btnDeleteInterview"

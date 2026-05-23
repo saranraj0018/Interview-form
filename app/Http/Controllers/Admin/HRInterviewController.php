@@ -32,4 +32,17 @@ class HRInterviewController extends Controller
 
     return view('admin.hr.show', compact('pivot'));
 }
+
+public function ratingsView($id)
+{
+    $interview = Interview::with([
+        'emails.ratings',
+        'emails.category',
+        'candidate'
+    ])->findOrFail($id);
+
+    return view('admin.hr.ratings-view', compact('interview'));
+}
+
+
 }

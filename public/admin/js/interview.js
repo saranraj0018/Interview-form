@@ -11,10 +11,17 @@ $(document).ready(function () {
             position: '',
             department: '',
             candidate_id: '',
-            interview_date: '',
+            proposed_gross_salary: '',
+            proposed_ctc_salary: '',
+            interview_date: new Date().toISOString().split('T')[0],
             institution: '',
             categories: []
         };
+
+       alpine.candidate_experience = '';
+        alpine.candidate_position = '';
+        alpine.candidate_current_salary = '';
+        alpine.candidate_expected_salary = '';
 
         alpine.open = true;
 
@@ -32,6 +39,8 @@ $(document).ready(function () {
         alpine.form.position = $(this).data("position");
         alpine.form.department = $(this).data("department");
         alpine.form.candidate_id = $(this).data("candidate");
+        alpine.form.proposed_gross_salary = $(this).data("proposed_gross_salary");
+        alpine.form.proposed_ctc_salary = $(this).data("proposed_ctc_salary");
         alpine.form.interview_date = $(this).data("date");
         alpine.form.institution = $(this).data("institution");
 
@@ -79,7 +88,7 @@ $(document).ready(function () {
 
                     document.getElementById("interviewForm").reset();
 
-                    reloadInterviewList();
+                   location.reload();
 
                 }, 500);
 
