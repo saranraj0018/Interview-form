@@ -1,5 +1,20 @@
 <x-layouts.app>
 
+    @if(session('success'))
+
+    <div id="toast-success"
+        class="fixed top-5 right-5 z-50 bg-green-600 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 transition-all duration-500">
+
+        <span class="text-lg">✅</span>
+
+        <span class="font-medium">
+            {{ session('success') }}
+        </span>
+
+    </div>
+
+@endif
+
     <div class="p-4">
 
         <div class="flex justify-between mb-4">
@@ -20,6 +35,7 @@
                         <th class="px-3 py-2">Interview Date</th>
                         <th class="px-3 py-2">Status</th>
                         <th class="px-3 py-2 text-center">Action</th>
+                        <th class="px-3 py-2 text-center">Ratings View</th>
                         <th class="px-3 py-2 text-center">Final Action</th>
 
                     </tr>
@@ -39,7 +55,7 @@
                             </td>
 
                             <td class="px-4 py-3">
-                                {{ $interview->position }}
+                                {{ $interview->candidate->position_applied ?? '-' }}
                             </td>
 
                             <td class="px-4 py-3">
@@ -95,17 +111,44 @@
                                 </div>
                             </td>
 
-                            <td class="px-4 py-3 text-center">
+                       <td class="px-4 py-3 text-center">
 
-                        <form method="POST" action="{{ route('admin.hr.final-select', $interview->id) }}">
-                            @csrf
-                            <button class="bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700">
-                                Final Select
-                            </button>
-                        </form>
+                            <a href="{{ route('admin.hr.ratings-view', $interview->id) }}"
+                                class="inline-flex items-center gap-2
+                                bg-gradient-to-r from-pink-500 to-fuchsia-600
+                                text-white text-xs font-semibold
+                                px-4 py-2 rounded-xl
+                                shadow-md shadow-pink-200
+                                hover:scale-105 hover:shadow-lg hover:from-pink-600 hover:to-fuchsia-700
+                                transition-all duration-200">
 
-                    </td>
+                                📊 View Ratings
 
+                            </a>
+
+                        </td>
+
+                        <td class="px-4 py-3 text-center">
+
+                            <form method="POST" action="{{ route('admin.hr.final-select', $interview->id) }}">
+                                @csrf
+
+                                <button
+                                    class="inline-flex items-center gap-2
+                                    bg-gradient-to-r from-emerald-500 to-green-600
+                                    text-white text-xs font-semibold
+                                    px-4 py-2 rounded-xl
+                                    shadow-md shadow-green-200
+                                    hover:scale-105 hover:shadow-lg hover:from-emerald-600 hover:to-green-700
+                                    transition-all duration-200">
+
+                                    ✅ Final Select
+
+                                </button>
+
+                            </form>
+
+                        </td>
                         </tr>
                     @endforeach
 
@@ -121,5 +164,25 @@
         </div>
 
     </div>
+
+    <script>
+
+setTimeout(() => {
+
+    const toast = document.getElementById('toast-success');
+
+    if (toast) {
+
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(100%)';
+
+        setTimeout(() => {
+            toast.remove();
+        }, 500);
+    }
+
+}, 3000);
+
+</script>
 
 </x-layouts.app>
