@@ -17,12 +17,23 @@
                     </p>
                 </div>
 
-                <a href="{{ route('admin.candidates.index') }}"
-                    class="px-4 py-2 bg-pink-100 text-pink-700 rounded-lg text-sm font-semibold hover:bg-pink-700 hover:text-white transition">
+             <div class="flex items-center gap-3">
 
-                    Back
+        <a href="{{ route('admin.candidates.download', $candidate->id) }}"
+            class="px-4 py-2 bg-green-100 text-green-700 rounded-lg text-sm font-semibold hover:bg-green-700 hover:text-white transition">
 
-                </a>
+            Download PDF
+
+        </a>
+
+        <a href="{{ route('admin.candidates.index') }}"
+            class="px-4 py-2 bg-pink-100 text-pink-700 rounded-lg text-sm font-semibold hover:bg-pink-700 hover:text-white transition">
+
+            Back
+
+        </a>
+
+    </div>
 
             </div>
 

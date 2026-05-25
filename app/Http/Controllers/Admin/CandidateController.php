@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Candidate;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class CandidateController extends Controller
@@ -28,4 +29,21 @@ class CandidateController extends Controller
 
         return view('admin.candidates.show', compact('candidate'));
     }
+
+    public function downloadPdf($id)
+{
+    $candidate = Candidate::with([
+        'educations',
+        'experiences',
+        'languages',
+        'families',
+        'references',
+        'friendReferences',
+        'jobPost.company'
+    ])->findOrFail($id);
+
+    $pdf = Pdf::loadView('admin.candidates.pdf', compact('candidate'));
+
+    return $pdf->download($candidate->full_name . '.pdf');
+}
 }

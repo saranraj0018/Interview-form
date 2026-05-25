@@ -6,6 +6,7 @@ use App\Models\Interview;
 use Illuminate\Support\Str;
 use App\Models\Employee;
 use App\Models\FamilyDetail;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -161,5 +162,14 @@ class HRController extends Controller {
 
         return view('admin.employee.show', compact('employee'));
     }
+
+    public function downloadPdf($id)
+{
+    $employee = Employee::with('familyDetails')->findOrFail($id);
+
+    $pdf = Pdf::loadView('admin.employee.pdf', compact('employee'));
+
+    return $pdf->download('employee-profile.pdf');
+}
 
 }

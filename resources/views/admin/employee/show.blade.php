@@ -227,9 +227,24 @@
                     <h2>Employee Profile</h2>
                 </div>
 
-                <a href="{{ route('admin.employee.index') }}" class="irv-back">
-                    ← Back
-                </a>
+              <div style="display:flex; gap:10px;">
+
+    <a href="{{ route('admin.employee.download', $employee->id) }}"
+       class="irv-back"
+       style="background:#dcfce7; color:#15803d; border-color:#bbf7d0;">
+
+        Download PDF
+
+    </a>
+
+    <a href="{{ route('admin.employee.index') }}"
+       class="irv-back">
+
+        ← Back
+
+    </a>
+
+</div>
 
             </div>
 
