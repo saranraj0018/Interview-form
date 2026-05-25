@@ -8,12 +8,23 @@
         Interview Ratings Summary
     </h2>
 
+  <div class="flex items-center gap-3">
+
+    <a href="{{ route('admin.hr.download', $interview->id) }}"
+        class="bg-green-100 text-green-700 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-600 hover:text-white transition">
+
+        Download PDF
+
+    </a>
+
     <a href="{{ route('admin.hr.view') }}"
         class="bg-pink-100 text-pink-700 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-pink-600 hover:text-white transition">
 
         ← Back
 
     </a>
+
+</div>
 
 </div>
 

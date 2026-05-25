@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\InterviewEmail;
 use App\Models\Interview;
 
@@ -42,6 +43,19 @@ public function ratingsView($id)
     ])->findOrFail($id);
 
     return view('admin.hr.ratings-view', compact('interview'));
+}
+
+public function downloadPdf($id)
+{
+    $interview = Interview::with([
+        'candidate',
+        'emails.category',
+        'emails.ratings'
+    ])->findOrFail($id);
+
+    $pdf = Pdf::loadView('admin.hr.pdf', compact('interview'));
+
+    return $pdf->download('interview-summary.pdf');
 }
 
 

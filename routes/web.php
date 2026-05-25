@@ -78,6 +78,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/list', 'view')->name('admin.hr.view');
             Route::get('/show/{id}', 'show')->name('admin.hr.show');
             Route::get('/ratings-view/{id}', 'ratingsView')->name('admin.hr.ratings-view');
+            Route::get('/download/{id}', 'downloadPdf')->name('admin.hr.download');
         });
 
         // job
@@ -98,11 +99,13 @@ Route::prefix('admin')->group(function () {
             Route::prefix('employee')->controller(App\Http\Controllers\HRController::class)->group(function () {
                 Route::get('/list', 'index')->name('admin.employee.index');
                 Route::get('/show/{id}', 'show')->name('admin.employee.show');
+                Route::get('/download/{id}', 'downloadPdf')->name('admin.employee.download');
             });
 
         //candidate details
         Route::get('/candidates', [AdminCandidateController::class, 'view'])->name('admin.candidates.index');
         Route::get('/candidate/{id}', [AdminCandidateController::class, 'show'])->name('admin.candidates.show');
+        Route::get('/candidate/{id}/download', [AdminCandidateController::class, 'downloadPdf'])->name('admin.candidates.download');
 
          Route::post('/user_logout', [Authenticate::class, 'user_logout'])->name('admin.user_logout');
 
