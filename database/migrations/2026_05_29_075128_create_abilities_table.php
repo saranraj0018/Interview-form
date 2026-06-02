@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('interviews', function (Blueprint $table) {
+        Schema::create('abilities', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('candidate_id');
-            $table->string('position');
-            $table->string('department');
-            $table->date('interview_date');
-            $table->string('institution');
-            $table->string('overall_status')->nullable();
+             $table->string('title');
+            $table->string('ability')->nullable();
+            $table->unsignedBigInteger('menu_id')->default(0);
+            $table->enum('main_menu', ['y', 'n'])->default('n');
+            $table->string('route')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('interviews');
+        Schema::dropIfExists('abilities');
     }
 };

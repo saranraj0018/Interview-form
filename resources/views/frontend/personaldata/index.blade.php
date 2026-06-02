@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('personal.data.save') }}">
+<form method="POST" action="{{ route('personal.data.save') }}" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="job_post_id" value="{{ $jobPost->id }}">
 
@@ -272,7 +272,7 @@
                 <div class="px-4 py-8 sm:px-8 sm:py-12 border-b border-[#e8edf5] text-center relative overflow-hidden bg-white/40">
                     <!-- Soft Particle Canvas -->
                     <canvas id="headerParticles" class="absolute inset-0 pointer-events-none opacity-50"></canvas>
-                    
+
                     <div class="relative z-10">
                         <div class="inline-flex items-center gap-2 bg-[#eff2ff] text-[#4f6fff] text-[11px] font-bold tracking-widest uppercase border border-[#c7d2fe] rounded-full px-4 py-1.5 mb-5 animate-pulse">
                             <span class="w-2 h-2 rounded-full bg-[#4f6fff] ring-2 ring-[#c7d2fe] ring-offset-1 ring-offset-[#eff2ff]"></span>
@@ -481,7 +481,7 @@
                                 <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-[#f0f4ff] border border-[#c7d2fe] text-[#4f6fff] text-sm font-bold">04</span>
                                 <h2 class="text-lg font-bold text-[#0f1f5c] tracking-wide">Educational Qualifications</h2>
                             </div>
-                            
+
                             <button type="button" id="addRowBtn" class=" w-28 inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#4f6fff] bg-[#f0f4ff] border border-[#c7d2fe] rounded-full px-4 py-2 hover:bg-[#4f6fff] hover:text-white hover:border-[#4f6fff] transition-colors duration-300 whitespace-nowrap cursor-pointer shadow-[0_2px_8px_rgba(79,111,255,0.05)] active:scale-95">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
                                 Add Row
@@ -546,7 +546,7 @@
                                 <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-[#f0f4ff] border border-[#c7d2fe] text-[#4f6fff] text-sm font-bold">05</span>
                                 <h2 class="text-lg font-bold text-[#0f1f5c] tracking-wide">Work Experience</h2>
                             </div>
-                            
+
                             <button type="button" id="addExperienceRowBtn" class=" w-28 inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#4f6fff] bg-[#f0f4ff] border border-[#c7d2fe] rounded-full px-4 py-2 hover:bg-[#4f6fff] hover:text-white hover:border-[#4f6fff] transition-colors duration-300 whitespace-nowrap cursor-pointer shadow-[0_2px_8px_rgba(79,111,255,0.05)] active:scale-95">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
                                 Add Row
@@ -631,7 +631,7 @@
                                 <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-[#f0f4ff] border border-[#c7d2fe] text-[#4f6fff] text-sm font-bold">07</span>
                                 <h2 class="text-lg font-bold text-[#0f1f5c] tracking-wide">Language Known</h2>
                             </div>
-                            
+
                             <div class="text-[11px] font-semibold text-[#4f6fff] bg-[#f0f4ff] border border-[#c7d2fe] rounded-full px-4 py-1.5 flex items-center gap-1.5">
                                 <span class="w-1.5 h-1.5 rounded-full bg-[#4f6fff] animate-pulse"></span>
                                 R: Read | W: Write | S: Speak | U: Understand
@@ -710,7 +710,7 @@
                                 <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-[#f0f4ff] border border-[#c7d2fe] text-[#4f6fff] text-sm font-bold">08</span>
                                 <h2 class="text-lg font-bold text-[#0f1f5c] tracking-wide">Family Details</h2>
                             </div>
-                            
+
                             <button type="button" id="addFamilyRowBtn" class=" w-28 inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#4f6fff] bg-[#f0f4ff] border border-[#c7d2fe] rounded-full px-4 py-2 hover:bg-[#4f6fff] hover:text-white hover:border-[#4f6fff] transition-colors duration-300 whitespace-nowrap cursor-pointer shadow-[0_2px_8px_rgba(79,111,255,0.05)] active:scale-95">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
                                 Add Row
@@ -923,7 +923,7 @@
                     <!-- Section 13: Declaration -->
                     <div class="reveal bg-slate-50 border border-[#e8edf5] rounded-3xl p-6 sm:p-8 space-y-8 relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-32 h-32 bg-[#4f6fff]/5 rounded-full filter blur-xl pointer-events-none"></div>
-                        
+
                         <div class="flex items-start gap-3">
                             <div class="w-5 h-5 rounded-full bg-[#f0f4ff] border border-[#c7d2fe] flex-shrink-0 mt-0.5 flex items-center justify-center text-[10px] font-bold text-[#4f6fff]">!</div>
                             <p class="text-sm text-[#0f1f5c] leading-relaxed">

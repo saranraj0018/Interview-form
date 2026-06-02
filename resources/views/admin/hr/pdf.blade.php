@@ -216,72 +216,142 @@
             </table>
         </div>
 
-        {{-- Ratings Table Section --}}
-        <div class="section-wrapper">
-            <div class="section-header">Evaluation Ratings Matrix</div>
-            <table class="ratings-table">
-                <thead>
-                    <tr>
-                        <th style="text-align: left; width: 45%;">Skills & Attributes</th>
-                        @foreach($interview->emails as $email)
-                            <th class="text-center">
-                                {{ $email->category->person_name }}
-                                <small>{{ $email->category->designation }}</small>
-                            </th>
-                        @endforeach
-                    </tr>
-                </thead>
-                <tbody>
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>Skills</th>
+
+            @foreach($interview->emails as $email)
+
+                <th class="text-center">
+
+                    {{ $email->category->person_name }}
+
+                    <br>
+
+                    <small>
+                        {{ $email->category->designation }}
+                    </small>
+
+                </th>
+
+            @endforeach
+  <th class="text-center">
+                Overall
+            </th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @php
+            $questions = $interview->emails->first()?->ratings;
+        @endphp
+
+        {{-- Questions --}}
+        @foreach($questions as $index => $question)
+
+            <tr>
+
+                <td>
+                    {{ $question->question }}
+                </td>
+
+                @foreach($interview->emails as $email)
+
                     @php
-                        $questions = $interview->emails->first()?->ratings;
+                        $rating = $email->ratings[$index]->rating ?? '-';
                     @endphp
 
-                    @if($questions && count($questions) > 0)
-                        @foreach($questions as $index => $question)
-                            <tr>
-                                <td style="font-weight: 600; color: #475569;">
-                                    {{ $question->question }}
-                                </td>
-                                @foreach($interview->emails as $email)
-                                    @php
-                                        $rating = $email->ratings[$index]->rating ?? null;
-                                    @endphp
-                                    <td class="text-center score-value">
-                                        @if($rating !== null)
-                                            {{ $rating }} <span style="font-weight: normal; color: #94a3b8; font-size: 8px;">/ 5</span>
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                @endforeach
-                            </tr>
-                        @endforeach
+                    <td class="text-center">
 
-                        {{-- Total Score Row --}}
-                        <tr class="total-row">
-                            <td style="font-weight: bold; color: #0f1f5c; text-transform: uppercase; font-size: 9px; letter-spacing: 0.5px;">
-                                Total Evaluation Score
-                            </td>
-                            @foreach($interview->emails as $email)
-                                @php
-                                    $total = $email->ratings->sum('rating');
-                                    $max = $email->ratings->count() * 5;
-                                @endphp
-                                <td class="text-center" style="font-size: 11px;">
-                                    {{ $total }} <span style="font-weight: normal; color: #475569; font-size: 9px;">/ {{ $max }}</span>
-                                </td>
-                            @endforeach
-                        </tr>
-                    @else
-                        <tr>
-                            <td colspan="{{ 1 + count($interview->emails) }}" class="text-center" style="color: #94a3b8; font-style: italic; padding: 15px;">
-                                No evaluation ratings records found.
-                            </td>
-                        </tr>
-                    @endif
-                </tbody>
-            </table>
-        </div>
+                        {{ $rating }}/5
+
+                    </td>
+
+                @endforeach
+       @php
+
+                    $overallScore = 0;
+
+                    foreach($interview->emails as $email) {
+                        $overallScore += $email->ratings[$index]->rating ?? 0;
+                    }
+
+                    $overallMax = count($interview->emails) * 5;
+
+                @endphp
+
+                <td class="text-center" style="font-weight:bold;color:green;">
+                    {{ $overallScore }}/{{ $overallMax }}
+                </td>
+            </tr>
+
+        @endforeach
+
+        {{-- Total Score --}}
+        <tr style="background:#fce7f3;">
+
+            <td style="font-weight:bold; color:#ea2498;">
+
+                Total Score
+
+            </td>
+
+            @foreach($interview->emails as $email)
+
+               @php
+                    $total = $email->ratings->sum('rating');
+                    $max = $email->ratings->count() * 5;
+
+                    $scoreOutOf100 = $max > 0
+                        ? round(($total / $max) * 100)
+                        : 0;
+                @endphp
+
+                <td class="text-center"
+                    style="font-weight:bold; color:#ea2498;">
+
+                    {{ $scoreOutOf100 }}/100
+
+                </td>
+
+            @endforeach
+
+            @php
+
+                $grandTotal = 0;
+                $grandMax = 0;
+
+                foreach($interview->emails as $email) {
+
+                    $grandTotal += $email->ratings->sum('rating');
+                    $grandMax += $email->ratings->count() * 5;
+
+                }
+
+                $overallScoreOutOf100 = $grandMax > 0
+                    ? round(($grandTotal / $grandMax) * 100)
+                    : 0;
+
+            @endphp
+
+            <td class="text-center"
+                style="font-weight:bold;color:green;">
+
+                {{ $overallScoreOutOf100 }}/100
+
+            </td>
+
+        </tr>
+
+    </tbody>
+
+</table>
 
         {{-- Footer --}}
         <div class="footer">

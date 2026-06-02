@@ -12,6 +12,7 @@ class Candidate extends Model
     'time',
     'source',
     'position_applied',
+    'resume',
     'full_name',
     'contact_address',
     'pin_code',
@@ -34,7 +35,9 @@ class Candidate extends Model
     'employee_reference',
     'declaration_date',
     'place',
-    'signature'
+    'signature',
+    'job_post_id',
+
 
 ];
 

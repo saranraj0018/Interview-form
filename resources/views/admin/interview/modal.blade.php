@@ -99,7 +99,7 @@
                     Current Gross Salary
                 </label>
 
-                <input type="text"
+                <input type="number"
                     x-model="candidate_current_salary"
                     class="form-input w-full border border-gray-300 rounded-lg p-2"
                     readonly>
@@ -111,7 +111,7 @@
                     Expected Gross Salary
                 </label>
 
-                <input type="text"
+                <input type="number"
                     x-model="candidate_expected_salary"
                     class="form-input w-full border border-gray-300 rounded-lg p-2"
                     readonly>
@@ -122,7 +122,7 @@
         Proposed Gross Salary
     </label>
 
-    <input type="text"
+    <input type="number"
         name="proposed_gross_salary"
         x-model="form.proposed_gross_salary"
         class="form-input w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#ea2498]">
@@ -134,7 +134,7 @@
         Proposed CTC Salary
     </label>
 
-    <input type="text"
+    <input type="number"
         name="proposed_ctc_salary"
         x-model="form.proposed_ctc_salary"
         class="form-input w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#ea2498]">

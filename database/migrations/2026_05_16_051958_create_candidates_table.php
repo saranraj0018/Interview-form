@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('job_post_id')->nullable()->after('id');
+            $table->unsignedBigInteger('job_post_id')->nullable();
             $table->date('date')->nullable();
             $table->time('time')->nullable();
             $table->string('source')->nullable();
             $table->string('position_applied')->nullable();
+            $table->string('resume')->nullable();
             $table->string('full_name');
             $table->text('contact_address')->nullable();
             $table->string('pin_code')->nullable();

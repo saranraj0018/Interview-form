@@ -89,13 +89,15 @@
                             </td>
 
                             <td class="px-4 py-3 text-center">
-
+    
+                                @can('employee.show')
                                 <a href="{{ route('admin.employee.show', $employee->id) }}"
                                    class="inline-block px-3 py-1 rounded text-xs font-semibold bg-indigo-50 text-indigo-700 hover:bg-indigo-700 hover:text-white transition-colors duration-150">
 
                                     View
 
                                 </a>
+                                @endcan
 
                             </td>
 

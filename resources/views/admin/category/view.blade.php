@@ -2,9 +2,11 @@
     <div class="p-4">
         <div class="flex justify-between mb-4">
             <h2 class="text-xl font-bold">Emails</h2>
+            @can('email.create')
             <button id="createCategoryBtn" class="bg-[#ea2498] text-white px-4 py-2 rounded">
                 Create
             </button>
+            @endcan
         </div>
 
         <div class="overflow-x-auto bg-white rounded-xl shadow-md">
@@ -51,6 +53,7 @@
                         </td>
 
                         <td class="px-4 py-3 flex justify-center gap-4">
+                            @can('email.edit')
                             <!-- Edit -->
                             <button
                                 class="text-blue-600 hover:text-blue-800 transition editCategoryBtn"
@@ -61,13 +64,16 @@
                                 data-level="{{ $category->level }}">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
+                            @endcan
 
+                            @can('email.delete')
                             <!-- Delete -->
                             <button
                                 class="text-red-600 hover:text-red-800 transition btnDeleteCategory"
                                 data-id="{{ $category->id }}">
                                 <i class="fa-solid fa-delete-left"></i>
                             </button>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
