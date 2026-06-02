@@ -49,6 +49,7 @@ class CandidateController extends Controller
 
             'source'              => 'required',
             'position_applied'    => 'required',
+            'resume'              => 'required|file|mimes:pdf,doc,docx|max:5120',
 
             // EDUCATION
             'degree.*'            => 'required|max:255',
@@ -118,6 +119,13 @@ class CandidateController extends Controller
     );
 }
 
+$resumePath = null;
+
+if ($request->hasFile('resume')) {
+
+    $resumePath = $request->file('resume')
+        ->store('resumes', 'public');
+}
         /*
         |--------------------------------------------------------------------------
         | SAVE CANDIDATE
@@ -130,7 +138,7 @@ class CandidateController extends Controller
             'time'                => $request->time,
             'source'              => $request->source,
             'position_applied'    => $request->position_applied,
-
+            'resume' => $resumePath,
             'full_name'           => $request->full_name,
             'contact_address'     => $request->contact_address,
             'pin_code'            => $request->pin_code,
@@ -335,7 +343,7 @@ class CandidateController extends Controller
         |--------------------------------------------------------------------------
         */
 
-       return view('frontend.interview.register.success');
+       return view('frontend.interview.register');
     }
 }
 

@@ -8,11 +8,13 @@
                 Job Posts
             </h2>
 
+            @can('job.create')
             <button id="createJobPostBtn" class="bg-[#ea2498] text-white px-4 py-2 rounded">
 
                 Create
 
             </button>
+            @endcan
 
         </div>
 
@@ -88,6 +90,7 @@
 
                                 <!-- Edit -->
 
+                                @can('job.edit')
                                 <button class="text-blue-600 hover:text-blue-800 transition editJobPostBtn"
                                     data-id="{{ $jobPost->id }}" data-job_title="{{ $jobPost->job_title }}"
                                     data-company_id="{{ $jobPost->company_id }}"
@@ -102,15 +105,18 @@
                                     <i class="fa-solid fa-pen-to-square"></i>
 
                                 </button>
+                                @endcan
 
                                 <!-- Delete -->
 
+                                @can('job.delete')
                                 <button class="text-red-600 hover:text-red-800 transition btnDeleteJobPost"
                                     data-id="{{ $jobPost->id }}">
 
                                     <i class="fa-solid fa-delete-left"></i>
 
                                 </button>
+                                @endcan
 
                             </td>
 

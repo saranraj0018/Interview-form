@@ -102,17 +102,20 @@
                             <td class="px-4 py-3 text-center">
                                 <div class="flex flex-col gap-2 items-center">
                                     @foreach ($interview->emails as $email)
+                                    @can('hr.show')
                                         <a href="{{ route('admin.hr.show', $email->id) }}"
                                             class="inline-block px-3 py-1 rounded text-xs font-semibold bg-indigo-50 text-indigo-700 hover:bg-indigo-700 hover:text-white transition-colors duration-150">
                                             {{ $email->category->person_name }}
                                             <span class="text-gray-500">({{ $email->category->designation }})</span>
                                         </a>
+                                        @endcan
                                     @endforeach
                                 </div>
                             </td>
 
                        <td class="px-4 py-3 text-center">
 
+                            @can('hr.ratings')
                             <a href="{{ route('admin.hr.ratings-view', $interview->id) }}"
                                 class="inline-flex items-center gap-2
                                 bg-gradient-to-r from-pink-500 to-fuchsia-600
@@ -125,6 +128,7 @@
                                 📊 View Ratings
 
                             </a>
+                            @endcan
 
                         </td>
 

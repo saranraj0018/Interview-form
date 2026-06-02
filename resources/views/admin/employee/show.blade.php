@@ -229,6 +229,7 @@
 
               <div style="display:flex; gap:10px;">
 
+                @can('employee.download')
     <a href="{{ route('admin.employee.download', $employee->id) }}"
        class="irv-back"
        style="background:#dcfce7; color:#15803d; border-color:#bbf7d0;">
@@ -237,6 +238,7 @@
 
     </a>
 
+                @endcan
     <a href="{{ route('admin.employee.index') }}"
        class="irv-back">
 

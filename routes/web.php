@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HRController;
+use App\Http\Controllers\Admin\Settings\RolesAndPermissionsController;
+use App\Http\Controllers\Admin\RolesController;
 
 //interview form routes
 Route::get('/interview/form/{token}', [InterviewController::class, 'form'])->name('interview.form');
@@ -106,6 +108,14 @@ Route::prefix('admin')->group(function () {
         Route::get('/candidates', [AdminCandidateController::class, 'view'])->name('admin.candidates.index');
         Route::get('/candidate/{id}', [AdminCandidateController::class, 'show'])->name('admin.candidates.show');
         Route::get('/candidate/{id}/download', [AdminCandidateController::class, 'downloadPdf'])->name('admin.candidates.download');
+
+
+         Route::get('/roles-and-permission', [RolesAndPermissionsController::class, 'roleAbilities'])->name('roles_and_permission');
+        Route::post('roles-and-permission-save', [RolesAndPermissionsController::class, 'updateRoleAbilities'])->name('roles_and_permission_save');
+
+        // create_role
+        Route::get('roles-list', [RolesController::class, 'index'])->name('roles_list');
+        Route::post('roles-save', [RolesController::class, 'roleSave'])->name('roles_save');
 
          Route::post('/user_logout', [Authenticate::class, 'user_logout'])->name('admin.user_logout');
 

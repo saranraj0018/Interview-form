@@ -122,7 +122,9 @@
                 </th>
 
             @endforeach
-
+  <th class="text-center">
+                Overall
+            </th>
         </tr>
 
     </thead>
@@ -155,7 +157,21 @@
                     </td>
 
                 @endforeach
+       @php
 
+                    $overallScore = 0;
+
+                    foreach($interview->emails as $email) {
+                        $overallScore += $email->ratings[$index]->rating ?? 0;
+                    }
+
+                    $overallMax = count($interview->emails) * 5;
+
+                @endphp
+
+                <td class="text-center" style="font-weight:bold;color:green;">
+                    {{ $overallScore }}/{{ $overallMax }}
+                </td>
             </tr>
 
         @endforeach
@@ -171,19 +187,48 @@
 
             @foreach($interview->emails as $email)
 
-                @php
+               @php
                     $total = $email->ratings->sum('rating');
                     $max = $email->ratings->count() * 5;
+
+                    $scoreOutOf100 = $max > 0
+                        ? round(($total / $max) * 100)
+                        : 0;
                 @endphp
 
                 <td class="text-center"
                     style="font-weight:bold; color:#ea2498;">
 
-                    {{ $total }}/{{ $max }}
+                    {{ $scoreOutOf100 }}/100
 
                 </td>
 
             @endforeach
+
+            @php
+
+                $grandTotal = 0;
+                $grandMax = 0;
+
+                foreach($interview->emails as $email) {
+
+                    $grandTotal += $email->ratings->sum('rating');
+                    $grandMax += $email->ratings->count() * 5;
+
+                }
+
+                $overallScoreOutOf100 = $grandMax > 0
+                    ? round(($grandTotal / $grandMax) * 100)
+                    : 0;
+
+            @endphp
+
+            <td class="text-center"
+                style="font-weight:bold;color:green;">
+
+                {{ $overallScoreOutOf100 }}/100
+
+            </td>
 
         </tr>
 

@@ -10,6 +10,7 @@
 
   <div class="flex items-center gap-3">
 
+    @can('hr.download')
     <a href="{{ route('admin.hr.download', $interview->id) }}"
         class="bg-green-100 text-green-700 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-600 hover:text-white transition">
 
@@ -17,6 +18,7 @@
 
     </a>
 
+    @endcan
     <a href="{{ route('admin.hr.view') }}"
         class="bg-pink-100 text-pink-700 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-pink-600 hover:text-white transition">
 
@@ -107,6 +109,14 @@
 
                     @endforeach
 
+        <th class="px-6 py-4 text-center border-b min-w-[120px]">
+
+            <div class="text-sm font-bold text-green-700">
+                Overall
+            </div>
+
+        </th>
+
                 </tr>
 
             </thead>
@@ -155,6 +165,35 @@
 
                         @endforeach
 
+                        @php
+
+                        $overallScore = 0;
+
+                        foreach($interview->emails as $email) {
+                            $overallScore += $email->ratings[$index]->rating ?? 0;
+                        }
+
+                        $overallMax = count($interview->emails) * 5;
+
+                    @endphp
+
+                    <td class="px-6 py-4 text-center border-b">
+
+                        <span class="
+                            inline-flex items-center justify-center
+                            min-w-[80px]
+                            px-3 py-1
+                            rounded-full
+                            text-sm font-bold
+                            bg-green-100 text-green-700
+                        ">
+
+                            {{ $overallScore }}/{{ $overallMax }}
+
+                        </span>
+
+                    </td>
+
                     </tr>
 
                 @endforeach
@@ -172,9 +211,13 @@
 
                     @foreach($interview->emails as $email)
 
-                        @php
+                           @php
                             $total = $email->ratings->sum('rating');
                             $max = $email->ratings->count() * 5;
+
+             $scoreOutOf100 = $max > 0
+                ? round(($total / $max) * 100)
+                : 0;
                         @endphp
 
                         <td class="px-6 py-4 text-center">
@@ -189,13 +232,48 @@
                                 shadow
                             ">
 
-                                {{ $total }}/{{ $max }}
+                               {{ $scoreOutOf100 }}/100
 
                             </span>
 
                         </td>
 
                     @endforeach
+
+                    @php
+
+                    $grandTotal = 0;
+                    $grandMax = 0;
+
+                    foreach($interview->emails as $email) {
+
+                        $grandTotal += $email->ratings->sum('rating');
+                        $grandMax += $email->ratings->count() * 5;
+                    }
+
+                    $overallScoreOutOf100 = $grandMax > 0
+                        ? round(($grandTotal / $grandMax) * 100)
+                        : 0;
+
+                @endphp
+
+                <td class="px-6 py-4 text-center">
+
+                    <span class="
+                        inline-block
+                        bg-gradient-to-r from-green-500 to-emerald-600
+                        text-white
+                        px-4 py-2
+                        rounded-xl
+                        text-sm font-bold
+                        shadow
+                    ">
+
+                        {{ $overallScoreOutOf100 }}/100
+
+                    </span>
+
+                </td>
 
                 </tr>
 

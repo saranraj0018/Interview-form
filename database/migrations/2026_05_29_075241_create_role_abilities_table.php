@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('interviews', function (Blueprint $table) {
+        Schema::create('role_abilities', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('candidate_id');
-            $table->string('position');
-            $table->string('department');
-            $table->date('interview_date');
-            $table->string('institution');
-            $table->string('overall_status')->nullable();
+       $table->foreignId('role_id')
+              ->constrained('roles')
+              ->cascadeOnDelete();
+            
+        $table->foreignId('ability_id')
+              ->constrained('abilities')
+              ->cascadeOnDelete();
             $table->timestamps();
+
+             $table->unique(['role_id', 'ability_id']);
         });
     }
 
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('interviews');
+        Schema::dropIfExists('role_abilities');
     }
 };

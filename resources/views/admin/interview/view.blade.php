@@ -2,9 +2,11 @@
     <div class="p-4">
         <div class="flex justify-between mb-4">
             <h2 class="text-xl font-bold">Interviews</h2>
+                @can('interview.create')
             <button id="createInterviewBtn" class="bg-[#ea2498] text-white px-4 py-2 rounded">
                 Create
             </button>
+                @endcan
         </div>
 
         <div class="overflow-x-auto bg-white rounded-xl shadow-md">
@@ -76,6 +78,7 @@
                             <td class="px-4 py-3 flex justify-center gap-4">
 
                                 <!-- Edit -->
+                                @can('interview.edit')
                                 <button
                                 class="text-blue-600 hover:text-blue-800 editInterviewBtn"
                                 data-id="{{ $interview->id }}"
@@ -89,12 +92,15 @@
                                 data-categories='@json($interview->categories->pluck("id"))'>
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
+                                @endcan
 
+                                @can('interview.delete')
                                 <!-- Delete -->
                                 <button class="text-red-600 hover:text-red-800 btnDeleteInterview"
                                     data-id="{{ $interview->id }}">
                                     <i class="fa-solid fa-delete-left"></i>
                                 </button>
+                                @endcan
 
                             </td>
 

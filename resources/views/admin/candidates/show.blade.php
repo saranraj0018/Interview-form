@@ -18,13 +18,14 @@
                 </div>
 
              <div class="flex items-center gap-3">
-
+@can('candidate.download')
         <a href="{{ route('admin.candidates.download', $candidate->id) }}"
             class="px-4 py-2 bg-green-100 text-green-700 rounded-lg text-sm font-semibold hover:bg-green-700 hover:text-white transition">
 
             Download PDF
 
         </a>
+@endcan
 
         <a href="{{ route('admin.candidates.index') }}"
             class="px-4 py-2 bg-pink-100 text-pink-700 rounded-lg text-sm font-semibold hover:bg-pink-700 hover:text-white transition">
@@ -81,8 +82,33 @@
                 </div>
 
                 <div><strong>Pin Code :</strong> {{ $candidate->pin_code }}</div>
+                <div>
+    <strong>Resume :</strong>
+
+    @if($candidate->resume)
+
+        <a href="{{ asset('storage/' . $candidate->resume) }}"
+           target="_blank"
+           class="text-blue-600 font-semibold underline">
+
+            View Resume
+
+        </a>
+
+    @else
+
+        -
+
+    @endif
+
+</div>
 
                 <div><strong>Certifications :</strong> {{ $candidate->certifications }}</div>
+
+                <div class="md:col-span-2">
+    <strong>Career Break :</strong>
+    {{ $candidate->career_break ?? '-' }}
+</div>
 
             </div>
 
@@ -104,9 +130,11 @@
                         <tr class="bg-[#ea2498] text-white">
 
                             <th class="p-3 text-left">Degree</th>
+                             <th class="p-3 text-left">Division</th>
                             <th class="p-3 text-left">College</th>
                             <th class="p-3 text-left">University</th>
                             <th class="p-3 text-left">Marks</th>
+                             <th class="p-3 text-left">Subjects</th>
                             <th class="p-3 text-left">Year</th>
 
                         </tr>
@@ -120,9 +148,11 @@
                             <tr class="border-b">
 
                                 <td class="p-3">{{ $education->degree }}</td>
+                                <td class="p-3">{{ $education->division }}</td>
                                 <td class="p-3">{{ $education->college }}</td>
                                 <td class="p-3">{{ $education->university }}</td>
                                 <td class="p-3">{{ $education->marks }}</td>
+                                <td class="p-3">{{ $education->subjects }}</td>
                                 <td class="p-3">{{ $education->year }}</td>
 
                             </tr>
@@ -376,6 +406,34 @@
         </div>
 
     @endforelse
+
+</div>
+
+{{-- Declaration Details --}}
+<div class="bg-white rounded-2xl shadow p-6">
+
+    <h3 class="text-lg font-bold mb-5 text-[#ea2498]">
+        Declaration Details
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+
+        <div>
+            <strong>Declaration Date :</strong>
+            {{ $candidate->declaration_date ?? '-' }}
+        </div>
+
+        <div>
+            <strong>Place :</strong>
+            {{ $candidate->place ?? '-' }}
+        </div>
+
+        <div>
+            <strong>Signature :</strong>
+            {{ $candidate->signature ?? '-' }}
+        </div>
+
+    </div>
 
 </div>
 
