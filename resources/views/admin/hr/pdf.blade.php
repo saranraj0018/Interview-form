@@ -3,194 +3,291 @@
 
 <head>
     <meta charset="utf-8">
-
-    <title>Interview Summary</title>
-
+    <title>Interview Summary - {{ $interview->candidate->full_name }}</title>
     <style>
-
         body {
-            font-family: DejaVu Sans, sans-serif;
-            font-size: 12px;
-            color: #333;
+            font-family: 'DejaVu Sans', sans-serif;
+            font-size: 11px;
+            color: #334155;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
         }
 
-        h2 {
-            color: #ea2498;
-            margin-bottom: 20px;
+        .container {
+            padding: 10px;
         }
 
-        h3 {
-            color: #ea2498;
-            margin-top: 30px;
-            margin-bottom: 10px;
-        }
-
-        table {
+        /* Header block styling */
+        .header-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #0f1f5c;
+            padding-bottom: 12px;
         }
 
-        table, th, td {
-            border: 1px solid #ccc;
+        .header-table td {
+            border: none;
+            padding: 0;
         }
 
-        th {
-            background: #ea2498;
-            color: white;
-            padding: 10px;
-            text-align: left;
-        }
-
-        td {
-            padding: 10px;
-        }
-
-        .info-table td:first-child {
-            width: 200px;
+        .company-title {
+            font-size: 9px;
             font-weight: bold;
-            background: #f9f9f9;
+            color: #4f6fff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .interview-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #0f1f5c;
+            margin: 0 0 4px 0;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .interview-sub {
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+
+        .header-meta {
+            font-size: 10px;
+            color: #475569;
+        }
+
+        .header-meta span {
+            color: #0f1f5c;
+            font-weight: bold;
+        }
+
+        /* Section wrapper */
+        .section-wrapper {
+            margin-bottom: 18px;
+            page-break-inside: avoid;
+        }
+
+        .section-header {
+            font-size: 11px;
+            font-weight: bold;
+            color: #0f1f5c;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background-color: #f1f5f9;
+            padding: 6px 10px;
+            border-left: 4px solid #0f1f5c;
+            margin-bottom: 8px;
+        }
+
+        /* Form/Info grids */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 5px;
+        }
+
+        .info-table td {
+            padding: 6px 8px;
+            vertical-align: middle;
+            border: 1px solid #e2e8f0;
+        }
+
+        .label-col {
+            width: 22%;
+            font-weight: bold;
+            color: #475569;
+            background-color: #f8fafc;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .value-col {
+            width: 28%;
+            color: #0f1f5c;
+            font-weight: bold;
+        }
+
+        /* Ratings Table Styling */
+        .ratings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+        }
+
+        .ratings-table th {
+            background-color: #0f1f5c;
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 9px;
+            letter-spacing: 0.5px;
+            padding: 8px 10px;
+            border: 1px solid #0f1f5c;
+        }
+
+        .ratings-table th small {
+            font-weight: normal;
+            font-size: 8px;
+            color: #e2e8f0;
+            display: block;
+            margin-top: 2px;
+            text-transform: none;
+        }
+
+        .ratings-table td {
+            padding: 8px 10px;
+            border: 1px solid #e2e8f0;
+            font-size: 10px;
+            color: #334155;
+        }
+
+        .ratings-table tr:nth-child(even) td {
+            background-color: #f8fafc;
         }
 
         .text-center {
             text-align: center;
         }
 
-        .score {
+        .score-value {
             font-weight: bold;
-            color: #ea2498;
+            color: #0f1f5c;
         }
 
-    </style>
+        .total-row td {
+            background-color: #e8edf5 !important;
+            font-weight: bold;
+            color: #0f1f5c;
+            border-top: 2px solid #0f1f5c;
+            font-size: 11px;
+        }
 
+        .footer {
+            margin-top: 35px;
+            font-size: 9px;
+            color: #94a3b8;
+            text-align: center;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 8px;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="container">
 
-    <h2>Interview Ratings Summary</h2>
-
-    {{-- Candidate Info --}}
-    <table class="info-table">
-
-        <tr>
-            <td>Candidate Name</td>
-            <td>{{ $interview->candidate->full_name }}</td>
-        </tr>
-
-        <tr>
-            <td>Position</td>
-            <td>{{ $interview->candidate->position_applied ?? '-' }}</td>
-        </tr>
-
-        <tr>
-            <td>Department</td>
-            <td>{{ $interview->department }}</td>
-        </tr>
-
-        <tr>
-            <td>Interview Date</td>
-            <td>
-                {{ \Carbon\Carbon::parse($interview->interview_date)->format('d M Y') }}
-            </td>
-        </tr>
-
-    </table>
-
-    {{-- Ratings Table --}}
-  <h3>Interview Ratings Comparison</h3>
-
-<table>
-
-    <thead>
-
-        <tr>
-
-            <th>Skills</th>
-
-            @foreach($interview->emails as $email)
-
-                <th class="text-center">
-
-                    {{ $email->category->person_name }}
-
-                    <br>
-
-                    <small>
-                        {{ $email->category->designation }}
-                    </small>
-
-                </th>
-
-            @endforeach
-
-        </tr>
-
-    </thead>
-
-    <tbody>
-
-        @php
-            $questions = $interview->emails->first()?->ratings;
-        @endphp
-
-        {{-- Questions --}}
-        @foreach($questions as $index => $question)
-
+        <div style="text-align: center; margin-bottom: 10px;">
+            <img src="{{ public_path('assets/images/rathinamgroup.png') }}" style="height: 45px; width: auto;">
+        </div>
+        {{-- Executive Header Block --}}
+        <table class="header-table">
             <tr>
-
-                <td>
-                    {{ $question->question }}
+                <td style="width: 100%; vertical-align: top;">
+                    <div class="company-title">Interview Summary & Evaluation</div>
+                    <h1 class="interview-title">Ratings Summary</h1>
                 </td>
+            </tr>
+        </table>
 
-                @foreach($interview->emails as $email)
+        {{-- Candidate Info Section --}}
+        <div class="section-wrapper">
+            <div class="section-header">Candidate & Schedule Information</div>
+            <table class="info-table">
+                <tr>
+                    <td class="label-col">Candidate Name</td>
+                    <td class="value-col">{{ $interview->candidate->full_name }}</td>
+                    <td class="label-col">Interview Date</td>
+                    <td class="value-col">{{ \Carbon\Carbon::parse($interview->interview_date)->format('d M Y') }}</td>
+                </tr>
+                <tr>
+                    <td class="label-col">Position Applied</td>
+                    <td class="value-col">{{ $interview->candidate->position_applied ?? '-' }}</td>
+                    <td class="label-col">Department</td>
+                    <td class="value-col">{{ $interview->department }}</td>
+                </tr>
+            </table>
+        </div>
 
+        {{-- Ratings Table Section --}}
+        <div class="section-wrapper">
+            <div class="section-header">Evaluation Ratings Matrix</div>
+            <table class="ratings-table">
+                <thead>
+                    <tr>
+                        <th style="text-align: left; width: 45%;">Skills & Attributes</th>
+                        @foreach($interview->emails as $email)
+                            <th class="text-center">
+                                {{ $email->category->person_name }}
+                                <small>{{ $email->category->designation }}</small>
+                            </th>
+                        @endforeach
+                    </tr>
+                </thead>
+                <tbody>
                     @php
-                        $rating = $email->ratings[$index]->rating ?? '-';
+                        $questions = $interview->emails->first()?->ratings;
                     @endphp
 
-                    <td class="text-center">
+                    @if($questions && count($questions) > 0)
+                        @foreach($questions as $index => $question)
+                            <tr>
+                                <td style="font-weight: 600; color: #475569;">
+                                    {{ $question->question }}
+                                </td>
+                                @foreach($interview->emails as $email)
+                                    @php
+                                        $rating = $email->ratings[$index]->rating ?? null;
+                                    @endphp
+                                    <td class="text-center score-value">
+                                        @if($rating !== null)
+                                            {{ $rating }} <span style="font-weight: normal; color: #94a3b8; font-size: 8px;">/ 5</span>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                @endforeach
+                            </tr>
+                        @endforeach
 
-                        {{ $rating }}/5
+                        {{-- Total Score Row --}}
+                        <tr class="total-row">
+                            <td style="font-weight: bold; color: #0f1f5c; text-transform: uppercase; font-size: 9px; letter-spacing: 0.5px;">
+                                Total Evaluation Score
+                            </td>
+                            @foreach($interview->emails as $email)
+                                @php
+                                    $total = $email->ratings->sum('rating');
+                                    $max = $email->ratings->count() * 5;
+                                @endphp
+                                <td class="text-center" style="font-size: 11px;">
+                                    {{ $total }} <span style="font-weight: normal; color: #475569; font-size: 9px;">/ {{ $max }}</span>
+                                </td>
+                            @endforeach
+                        </tr>
+                    @else
+                        <tr>
+                            <td colspan="{{ 1 + count($interview->emails) }}" class="text-center" style="color: #94a3b8; font-style: italic; padding: 15px;">
+                                No evaluation ratings records found.
+                            </td>
+                        </tr>
+                    @endif
+                </tbody>
+            </table>
+        </div>
 
-                    </td>
-
-                @endforeach
-
-            </tr>
-
-        @endforeach
-
-        {{-- Total Score --}}
-        <tr style="background:#fce7f3;">
-
-            <td style="font-weight:bold; color:#ea2498;">
-
-                Total Score
-
-            </td>
-
-            @foreach($interview->emails as $email)
-
-                @php
-                    $total = $email->ratings->sum('rating');
-                    $max = $email->ratings->count() * 5;
-                @endphp
-
-                <td class="text-center"
-                    style="font-weight:bold; color:#ea2498;">
-
-                    {{ $total }}/{{ $max }}
-
-                </td>
-
-            @endforeach
-
-        </tr>
-
-    </tbody>
-
-</table>
-
+        {{-- Footer --}}
+        <div class="footer">
+            Generated dynamically on {{ date('d-m-Y') }} &bull; Confidentially Logged HR Ratings Document
+        </div>
+    </div>
 </body>
 
 </html>
