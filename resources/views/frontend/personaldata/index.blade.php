@@ -441,36 +441,6 @@
                         </div>
                     </div>
 
-                    <div class="reveal space-y-6">
-    <div class="flex items-center gap-3 border-b border-[#e8edf5] pb-3">
-        <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-[#f0f4ff] border border-[#c7d2fe] text-[#4f6fff] text-sm font-bold">
-            CV
-        </span>
-        <h2 class="text-lg font-bold text-[#0f1f5c] tracking-wide">
-            Resume Upload
-        </h2>
-    </div>
-
-    <div class="flex flex-col">
-        <label class="text-[11px] font-bold text-[#6b7db3] uppercase tracking-wider mb-2">
-            Upload Resume
-        </label>
-
-        <input
-            type="file"
-            name="resume"
-            accept=".pdf,.doc,.docx"
-            class="premium-input text-sm"
-        >
-
-        @error('resume')
-            <p class="text-red-500 text-xs mt-1">
-                {{ $message }}
-            </p>
-        @enderror
-    </div>
-</div>
-
                     <!-- Section 3: Salary & Notice Details -->
                     <div class="reveal space-y-6">
                         <div class="flex items-center gap-3 border-b border-[#e8edf5] pb-3">

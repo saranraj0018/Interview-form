@@ -1,117 +1,208 @@
-<div class="min-h-screen bg-gradient-to-b from-[#f8fbff] to-[#eef3f8] py-12">
+{{-- resources/views/jobs/role-summary.blade.php --}}
 
-    <div class="max-w-[1180px] mx-auto px-4">
-<div class="mb-6 hidden md:block">
-    <button onclick="window.history.back()"
-        class="flex items-center gap-2 px-4 py-2 bg-[#0b2c5f] text-white rounded-xl hover:bg-[#08304a] transition">
+<div class="min-h-screen bg-[#f0f4ff] font-sans overflow-hidden">
 
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15 19l-7-7 7-7" />
-        </svg>
+    {{-- ══════════════════════════════════
+         PAGE HEADER
+    ══════════════════════════════════ --}}
+    <div class="bg-white border-b border-[#e8edf5]
+                sticky top-0 z-30
+                backdrop-blur-xl bg-white/90">
 
-        Back
-    </button>
-</div>
-        <!-- HERO CARD -->
+        <div class="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8
+                    pt-5 sm:pt-6 pb-5 sm:pb-6">
+
+            {{-- Back Button --}}
+            <button onclick="window.history.back()" class="hidden md:inline-flex items-center gap-2
+                       text-[13px] font-semibold text-[#4f6fff]
+                       bg-[#f0f4ff] border border-[#c7d2fe]
+                       rounded-xl px-4 py-2
+                       hover:bg-[#e0e7ff]
+                       hover:shadow-[0_8px_20px_rgba(79,111,255,0.12)]
+                       active:scale-95
+                       transition-all duration-300">
+
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+
+                Back
+            </button>
+
+        </div>
+
+    </div>
+
+
+    {{-- ══════════════════════════════════
+         MAIN CONTENT
+    ══════════════════════════════════ --}}
+    <div class="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8
+                py-8 sm:py-10">
+
+        {{-- HERO CARD --}}
         <div class="relative overflow-hidden
-            bg-white rounded-[32px]
-            border border-gray-100
-            shadow-[0_10px_40px_rgba(0,0,0,0.05)]
-            p-6 sm:p-8 lg:p-10 mb-8">
+                    bg-white rounded-[24px]
+                    border border-[#e8edf5]
+                    shadow-[0_2px_12px_rgba(79,111,255,0.05)]
+                    hover:shadow-[0_20px_50px_rgba(79,111,255,0.13)]
+                    transition-all duration-300
+                    mb-8">
 
-            <!-- BACKGROUND -->
-            <div class="absolute top-0 right-0
-                w-[300px] h-[300px]
-                bg-[#eef4ff]
-                rounded-full blur-3xl opacity-70">
+            {{-- Top Gradient Line --}}
+            <div class="h-[4px] w-full
+                         bg-gradient-to-r
+                         from-[#1a3faa]
+                         via-[#4f6fff]
+                         to-[#7c93ff]">
+            </div>
+
+            {{-- Background Glow --}}
+            <div class="absolute top-[-80px] right-[-80px]
+                        w-[280px] h-[280px]
+                        bg-[#eef3ff]
+                        rounded-full blur-3xl opacity-70">
             </div>
 
             <div class="relative z-10
-                flex flex-col lg:flex-row
-                lg:items-center lg:justify-between
-                gap-8">
+                        p-6 sm:p-8 lg:p-10">
 
-                <!-- LEFT -->
-                <div class="flex-1">
+                <div class="flex flex-col lg:flex-row
+                            lg:items-center
+                            lg:justify-between
+                            gap-8">
 
-                    <!-- TITLE -->
-                    <h1 class="text-[32px] sm:text-[42px]
-                        font-bold text-[#0b2c5f]
-                        leading-tight mt-5">
+                    {{-- LEFT --}}
+                    <div class="flex-1">
 
-                       {{ $job->job_title }}
+                        {{-- Small Label --}}
+                        <p class="text-[11px]
+                                   font-bold
+                                   text-[#4f6fff]
+                                   tracking-[0.14em]
+                                   uppercase mb-3">
 
-                    </h1>
+                            Career Opportunity
 
-                    <!-- INFO -->
-                    <div class="items-center
-                        gap-5 mt-6">
+                        </p>
 
-                        <!-- LOCATION -->
-                        <div class="flex items-center gap-3 mb-4">
+                        {{-- Job Title --}}
+                        <h1 class="text-[30px] sm:text-[42px] lg:text-[48px]
+                                   font-extrabold
+                                   text-[#0f1f5c]
+                                   leading-[1.1]
+                                   tracking-tight">
 
-                            <div class="w-11 h-11 rounded-2xl
-                                bg-[#eef4ff]
-                                flex items-center justify-center">
+                            {{ $job->job_title }}
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#0b2c5f]"
-                                    fill="currentColor" viewBox="0 0 24 24">
+                        </h1>
 
-                                    <path
-                                        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z" />
+                        {{-- Description --}}
+                        <p class="text-[15px] sm:text-[16px]
+                                   text-[#5d6b98]
+                                   leading-relaxed
+                                   mt-5 max-w-[760px]">
 
-                                </svg>
+                            Join Rathinam Group and become part of a dynamic,
+                            innovation-driven organization focused on growth,
+                            excellence, and meaningful impact.
+
+                        </p>
+
+
+                        {{-- META INFO --}}
+                        <div class="flex flex-wrap items-center
+                                    gap-5 sm:gap-8 mt-8">
+
+                            {{-- LOCATION --}}
+                            <div class="flex items-center gap-3">
+
+                                <div class="w-11 h-11 rounded-2xl
+                                            bg-[#f0f4ff]
+                                            border border-[#dbe4ff]
+                                            flex items-center justify-center
+                                            shrink-0">
+
+                                    <svg class="w-5 h-5 text-[#4f6fff]" fill="currentColor" viewBox="0 0 24 24">
+
+                                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7
+                                                 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0
+                                                 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z" />
+                                    </svg>
+
+                                </div>
+
+                                <div>
+
+                                    <p class="text-[10px]
+                                               text-[#a0aec0]
+                                               uppercase
+                                               tracking-widest mb-1">
+
+                                        Location
+
+                                    </p>
+
+                                    <p class="text-[14px]
+                                               font-semibold
+                                               text-[#374151]">
+
+                                        {{ $job->location }}
+
+                                    </p>
+
+                                </div>
 
                             </div>
 
-                            <div>
 
-                                <p class="text-[12px] text-gray-400">
-                                    Location
-                                </p>
-
-                                <p class="text-[15px]
-                                    font-medium text-[#334155]">
-
-                                 {{ $job->location }}
-
-                                </p>
-
+                            {{-- Divider --}}
+                            <div class="hidden sm:block
+                                        w-px h-10
+                                        bg-[#e8edf5]">
                             </div>
 
-                        </div>
 
-                        <!-- EXPERIENCE -->
-                        <div class="flex items-center gap-3">
+                            {{-- EXPERIENCE --}}
+                            <div class="flex items-center gap-3">
 
-                            <div class="w-11 h-11 rounded-2xl
-                                bg-[#fff7e8]
-                                flex items-center justify-center">
+                                <div class="w-11 h-11 rounded-2xl
+                                            bg-[#fff7e8]
+                                            border border-[#ffe4a8]
+                                            flex items-center justify-center
+                                            shrink-0">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#d18b00]" fill="none"
-                                    stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <svg class="w-5 h-5 text-[#d18b00]" fill="none" stroke="currentColor"
+                                        stroke-width="2" viewBox="0 0 24 24">
 
-                                    <path d="M12 8v4l3 3"></path>
-                                    <circle cx="12" cy="12" r="9"></circle>
+                                        <path d="M12 8v4l3 3"></path>
+                                        <circle cx="12" cy="12" r="9"></circle>
 
-                                </svg>
+                                    </svg>
 
-                            </div>
+                                </div>
 
-                            <div>
+                                <div>
 
-                                <p class="text-[12px] text-gray-400">
-                                    Experience
-                                </p>
+                                    <p class="text-[10px]
+                                               text-[#a0aec0]
+                                               uppercase
+                                               tracking-widest mb-1">
 
-                                <p class="text-[15px]
-                                    font-medium text-[#334155]">
+                                        Experience
 
-                                  {{ $job->experience }}
+                                    </p>
 
-                                </p>
+                                    <p class="text-[14px]
+                                               font-semibold
+                                               text-[#374151]">
+
+                                        {{ $job->experience }}
+
+                                    </p>
+
+                                </div>
 
                             </div>
 
@@ -119,27 +210,35 @@
 
                     </div>
 
-                </div>
 
-                <!-- RIGHT -->
-                <div class="flex flex-col items-start lg:items-end gap-4">
+                    {{-- RIGHT CTA --}}
+                    <div class="flex flex-col items-start lg:items-end gap-4">
 
-                    <!-- BUTTON -->
-                  <a href="{{ route('personal.data', $job->id) }}" class="inline-block bg-gradient-to-r
-                        from-[#0b2c5f]
-                        to-[#123d7d]
-                        hover:scale-[1.03]
-                        text-white
-                        text-[15px]
-                        font-semibold
-                        px-7 py-3.5
-                        rounded-2xl
-                        shadow-lg
-                        transition-all duration-300">
+                        <a href="{{ route('personal.data', $job->id) }}" class="group inline-flex items-center gap-2
+                                   bg-gradient-to-r
+                                   from-[#1a3faa]
+                                   to-[#4f6fff]
+                                   hover:shadow-[0_20px_40px_rgba(79,111,255,0.35)]
+                                   hover:-translate-y-0.5
+                                   active:scale-[0.98]
+                                   text-white
+                                   text-[15px]
+                                   font-semibold
+                                   px-7 py-3.5
+                                   rounded-2xl
+                                   transition-all duration-300">
 
-                        Apply Now
+                            Apply Now
 
-                    </a>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5"
+                                viewBox="0 0 24 24">
+
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H8M17 7V16" />
+                            </svg>
+
+                        </a>
+
+                    </div>
 
                 </div>
 
@@ -147,80 +246,125 @@
 
         </div>
 
-        <!-- DETAILS -->
+
+        {{-- CONTENT GRID --}}
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-7">
 
-            <!-- LEFT CONTENT -->
+            {{-- LEFT CONTENT --}}
             <div class="lg:col-span-2 space-y-7">
 
-                <!-- ROLE SUMMARY -->
-                <div class="bg-white rounded-[28px]
-                    border border-gray-100
-                    shadow-sm p-7">
+                {{-- ROLE SUMMARY --}}
+                <div class="bg-white rounded-[24px]
+                            border border-[#e8edf5]
+                            shadow-[0_2px_12px_rgba(79,111,255,0.05)]
+                            p-6 sm:p-7">
 
-                    <div class="flex items-center gap-4 mb-6">
+                    <div class="flex items-center justify-between mb-6">
 
-                        <h2 class="text-[26px]
-                            font-bold text-[#0b2c5f]">
+                        <div>
 
-                            Role Summary
+                            <p class="text-[11px]
+                                       font-bold
+                                       text-[#4f6fff]
+                                       tracking-[0.14em]
+                                       uppercase mb-2">
+
+                                Overview
+
+                            </p>
+
+                            <h2 class="text-[24px] sm:text-[28px]
+                                       font-extrabold
+                                       text-[#0f1f5c]">
+
+                                Role Summary
+
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                    <p class="text-[15px] sm:text-[16px]
+                               leading-[2]
+                               text-[#475569]">
+
+                        {{ $job->role_summary }}
+
+                    </p>
+
+                </div>
+
+
+                {{-- RESPONSIBILITIES --}}
+                <div class="bg-white rounded-[24px]
+                            border border-[#e8edf5]
+                            shadow-[0_2px_12px_rgba(79,111,255,0.05)]
+                            p-6 sm:p-7">
+
+                    <div class="mb-6">
+
+                        <p class="text-[11px]
+                                   font-bold
+                                   text-[#4f6fff]
+                                   tracking-[0.14em]
+                                   uppercase mb-2">
+
+                            Duties
+
+                        </p>
+
+                        <h2 class="text-[24px] sm:text-[28px]
+                                   font-extrabold
+                                   text-[#0f1f5c]">
+
+                            Key Responsibilities
 
                         </h2>
 
                     </div>
 
-                    <p class="text-[16px]
-                        leading-[32px]
-                        text-[#475569]">
-                      {{ $job->role_summary }}
-                    </p>
-
-                </div>
-
-                <!-- RESPONSIBILITIES -->
-                <div class="bg-white rounded-[28px]
-                    border border-gray-100
-                    shadow-sm p-7">
-
-                    <h2 class="text-[26px]
-                        font-bold text-[#0b2c5f]
-                        mb-6">
-
-                        Key Responsibilities
-
-                    </h2>
-
                     <div class="grid sm:grid-cols-2 gap-4">
 
                         @foreach($responsibilities as $item)
-                        <div class="bg-[#f8fafc]
-            rounded-2xl
-            flex items-start gap-3">
 
-                            <!-- ICON -->
-                            <div class="w-8 h-8 rounded-full
-                bg-green-100
-                flex items-center justify-center
-                shrink-0">
+                        <div class="group
+                                    bg-[#f8faff]
+                                    border border-[#edf2ff]
+                                    rounded-2xl
+                                    p-4
+                                    hover:border-[#dbe4ff]
+                                    hover:bg-[#f4f7ff]
+                                    transition-all duration-300">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-600" fill="none"
-                                    stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                            <div class="flex items-start gap-3">
 
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                {{-- ICON --}}
+                                <div class="w-8 h-8 rounded-full
+                                            bg-green-100
+                                            flex items-center justify-center
+                                            shrink-0 mt-0.5">
 
-                                </svg>
+                                    <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor"
+                                        stroke-width="3" viewBox="0 0 24 24">
+
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+
+                                </div>
+
+                                <p class="text-[14px]
+                                           text-[#475569]
+                                           leading-relaxed">
+
+                                    {{ $item }}
+
+                                </p>
 
                             </div>
 
-                            <p class="text-[15px]
-                text-[#475569]
-                leading-relaxed">
-
-                                {{ $item }}
-
-                            </p>
-
                         </div>
+
                         @endforeach
 
                     </div>
@@ -229,92 +373,129 @@
 
             </div>
 
-            <!-- RIGHT SIDEBAR -->
+
+            {{-- RIGHT SIDEBAR --}}
             <div class="space-y-7">
 
-                <!-- QUALIFICATION -->
-                <div class="bg-white rounded-[28px]
-                    border border-gray-100
-                    shadow-sm p-7">
+                {{-- QUALIFICATIONS --}}
+                <div class="bg-white rounded-[24px]
+                            border border-[#e8edf5]
+                            shadow-[0_2px_12px_rgba(79,111,255,0.05)]
+                            p-6 sm:p-7">
 
-                    <h2 class="text-[22px]
-                        font-bold text-[#0b2c5f]
-                        mb-5">
+                    <div class="mb-6">
 
-                        Qualifications
+                        <p class="text-[11px]
+                                   font-bold
+                                   text-[#4f6fff]
+                                   tracking-[0.14em]
+                                   uppercase mb-2">
 
-                    </h2>
+                            Requirements
 
-                   <ul class="space-y-4">
+                        </p>
 
-    @foreach($qualifications as $qualification)
+                        <h2 class="text-[22px]
+                                   font-extrabold
+                                   text-[#0f1f5c]">
 
-    @if(trim($qualification) != '')
+                            Qualifications
 
-    <li class="flex gap-3">
+                        </h2>
 
-        <div class="w-2.5 h-2.5
-            rounded-full bg-[#0b2c5f]
-            mt-2">
-        </div>
+                    </div>
 
-        <p class="text-[15px]
-            text-[#475569]
-            leading-relaxed">
+                    <ul class="space-y-4">
 
-            {{ $qualification }}
+                        @foreach($qualifications as $qualification)
 
-        </p>
+                        @if(trim($qualification) != '')
 
-    </li>
+                        <li class="flex gap-3">
 
-    @endif
+                            <div class="w-2.5 h-2.5
+                                        rounded-full
+                                        bg-[#4f6fff]
+                                        mt-2 shrink-0">
+                            </div>
 
-    @endforeach
+                            <p class="text-[14px]
+                                       text-[#475569]
+                                       leading-relaxed">
 
-</ul>
+                                {{ $qualification }}
+
+                            </p>
+
+                        </li>
+
+                        @endif
+
+                        @endforeach
+
+                    </ul>
 
                 </div>
 
-                <!-- SKILLS -->
-                <div class="bg-white rounded-[28px]
-    border border-gray-100
-    shadow-sm p-7">
 
-                    <h2 class="text-[22px]
-        font-bold text-[#0b2c5f]
-        mb-5">
+                {{-- SKILLS --}}
+                <div class="bg-white rounded-[24px]
+                            border border-[#e8edf5]
+                            shadow-[0_2px_12px_rgba(79,111,255,0.05)]
+                            p-6 sm:p-7">
 
-                        Skills
+                    <div class="mb-6">
 
-                    </h2>
+                        <p class="text-[11px]
+                                   font-bold
+                                   text-[#4f6fff]
+                                   tracking-[0.14em]
+                                   uppercase mb-2">
 
-                    <div class="flex flex-wrap gap-4">
+                            Expertise
+
+                        </p>
+
+                        <h2 class="text-[22px]
+                                   font-extrabold
+                                   text-[#0f1f5c]">
+
+                            Skills
+
+                        </h2>
+
+                    </div>
+
+                    <div class="flex flex-wrap gap-3">
 
                         @foreach($skills as $skill)
 
-                        <div class="flex items-center gap-2
-            bg-[#eef4ff]
-            text-[#0b2c5f]
-            px-4 py-2
-            rounded-full">
+                        <div class="inline-flex items-center gap-2
+                                    bg-[#f0f4ff]
+                                    border border-[#dbe4ff]
+                                    text-[#0f1f5c]
+                                    px-4 py-2.5
+                                    rounded-full
+                                    hover:bg-[#e8efff]
+                                    transition-colors duration-300">
 
-                            <!-- Tick Icon -->
+                            {{-- Tick --}}
                             <div class="w-5 h-5 rounded-full
-                bg-green-100
-                flex items-center justify-center">
+                                        bg-green-100
+                                        flex items-center justify-center">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-green-600" fill="none"
-                                    stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                <svg class="w-3 h-3 text-green-600" fill="none" stroke="currentColor" stroke-width="3"
+                                    viewBox="0 0 24 24">
 
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-
                                 </svg>
 
                             </div>
 
-                            <span class="text-[14px] font-medium">
-                              {{ trim($skill) }}
+                            <span class="text-[13px] font-semibold">
+
+                                {{ trim($skill) }}
+
                             </span>
 
                         </div>
@@ -331,4 +512,46 @@
 
     </div>
 
+
+    {{-- FOOTER --}}
+    <div class="bg-[#0f1f5c] py-5 text-center">
+
+        <p class="text-[13px] text-white/40">
+
+            © {{ date('Y') }} Rathinam Group · All rights reserved
+
+        </p>
+
+    </div>
+
 </div>
+
+
+<style>
+html {
+    -webkit-overflow-scrolling: touch;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+}
+
+@keyframes rg-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .4;
+    }
+}
+
+.animate-pulse {
+    animation: rg-pulse 2s cubic-bezier(.4, 0, .6, 1) infinite;
+}
+</style>
